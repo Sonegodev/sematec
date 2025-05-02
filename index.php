@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Durk</title>
-    <link rel="icon" type="image/png" href="logoAba.png">
+    <link rel="icon" type="image/png" href="imagens\logoAba.png">
     <style>
         body {
             margin: 0;
@@ -162,7 +162,7 @@
     <!-- header -->
     <header>
         <div class="headerEsq">
-            <div class="logo"><img src="logo.png" alt=""></div>
+            <div class="logo"><img src="imagens\logo.png" alt=""></div>
             <nav>
                 <a href="#">Vestuário</a>
                 <a href="#">Acessórios</a>
