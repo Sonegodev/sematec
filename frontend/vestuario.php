@@ -6,6 +6,12 @@
     <title>Vestuario</title>
 </head>
 <body>
-    <h1>essa é a página</h1>
+    <?php include 'includes/header.php'; ?>
+
+    <main>
+        <h1>comece aqui</h1>
+    </main>
+
+    <?php include 'includes/footer.php'; ?>
 </body>
-</html>cd
+</html>
