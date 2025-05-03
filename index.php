@@ -6,6 +6,7 @@
     <title>Durk</title>
     <link rel="icon" type="image/png" href="imagens\logoAba.png">
     <style>
+        
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -47,82 +48,7 @@
             100% {
                 transform: translateX(0);
             }
-        }
-
-        /* header */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #fff;
-            padding: 10px 40px;
-            border-bottom: 1px solid #ccc;
-        }
-
-        .headerEsq {
-            display: flex;
-            align-items: center;
-            gap: 40px;
-        }
-
-        .logo img {
-            height: 60px;
-            width: auto;
-        }
-
-        nav a {
-            margin: 0 12px;
-            text-decoration: none;
-            color: black;
-            font-weight: bold;
-        }
-
-        .headerDir {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .pesquisa input {
-            padding: 6px;
-            border: 1px solid #aaa;
-            border-radius: 10px;
-        }
-
-        /* footer */
-        footer {
-            background-color: #f9f9f9;
-            padding: 30px 40px;
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            border-top: 1px solid #ccc;
-        }
-
-        footer div {
-            margin: 10px;
-        }
-
-        footer h4 {
-            margin-bottom: 10px;
-        }
-
-        footer a {
-            display: block;
-            text-decoration: none;
-            color: black;
-            margin: 4px 0;
-        }
-
-        .icones img {
-            height: 24px;
-            margin-right: 10px;
-        }
-
-        main {
-            padding: 40px;
-            text-align: center;
-        }
+        }     
 
         .produtos {
             display: grid;
@@ -158,25 +84,8 @@
 </head>
 
 <body>
-
-    <!-- header -->
-    <header>
-        <div class="headerEsq">
-            <div class="logo"><img src="imagens\logo.png" alt=""></div>
-            <nav>
-                <a href="#">Vestuário</a>
-                <a href="#">Acessórios</a>
-                <a href="#">Lançamentos</a>
-            </nav>
-        </div>
-
-        <div class="headerDir">
-            <div class="pesquisa">
-                <input type="text" placeholder="Procurar">
-            </div>
-            <span>👤 🛒</span>
-        </div>
-    </header>
+   
+    <?php include 'frontend/includes/header.php'; ?>
 
     <div class="carousel">
         <div class="slides">
@@ -230,40 +139,7 @@
         </section>
     </main>
 
-    <!-- footer -->
-    <footer>
-        <div>
-            <h4>SOBRE</h4>
-            <a href="#">Quem Somos</a>
-            <a href="#">Perguntas Frequentes</a>
-        </div>
-        <div>
-            <h4>MEUS DADOS</h4>
-            <a href="#">Minha Conta</a>
-            <a href="#">Meus Pedidos</a>
-            <a href="#">Lista de Desejos</a>
-        </div>
-        <div>
-            <h4>POLÍTICAS</h4>
-            <a href="#">Trocas e Devoluções</a>
-            <a href="#">Entrega e Frete</a>
-            <a href="#">Pagamento</a>
-            <a href="#">Privacidade</a>
-            <a href="#">Termos de Uso</a>
-        </div>
-        <div>
-            <h4>CONTATO</h4>
-            <a href="#">Fale Conosco</a>
-            <a href="#">(XX) XXXXX-XXXX</a>
-            <a href="mailto:atendimento@loja.com.br">sematecloja@fatec.com.br</a>
-            <div class="icones" style="margin-top: 10px;">
-                <!-- icones -->
-                <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" width="24">
-                <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" width="24">
-                <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp" width="24">
-            </div>
-        </div>
-    </footer>
+    <?php include 'frontend/includes/footer.php'; ?>
 
 </body>
 
