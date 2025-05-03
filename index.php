@@ -95,48 +95,14 @@
         </div>
     </div>
 
-    <!-- meio -->
     <main>
-        <h1>bem vindo!</h1>
-        <p>novidades e lançamentos.</p>
-        <section class="produtos">
-            <div class="produto">
-                <img src="imagens/roupa1.jpg" alt="produto 1">
-                <h3>Tênis Nike Macacation</h3>
-                <p>R$ 79,90</p>
-            </div>
+        <div class="msgIndex">
+            <h1>bem vindos a Durk</h1>
+            <p class="subTexto">novos lançamentos sempre</p>
+        </div>
 
-            <div class="produto">
-                <img src="imagens/roupa2.jpg" alt="produto 2">
-                <h3>Camisa Travis Escroto</h3>
-                <p>R$ 129,90</p>
-            </div>
-
-            <div class="produto">
-                <img src="imagens/roupa3.jpg" alt="produto 3">
-                <h3>Calça Angelical</h3>
-                <p>R$ 199,90</p>
-            </div>
-            
-            <div class="produto">
-                <img src="imagens/roupa4.jpg" alt="produto 4">
-                <h3>Skibidi</h3>
-                <p>R$ 99,90</p>
-            </div>
-            
-            <div class="produto">
-                <img src="imagens/roupa5.jpg" alt="produto 5">
-                <h3>Toilet</h3>
-                <p>R$ 59,90</p>
-            </div>
-
-            <div class="produto">
-                <img src="imagens/roupa6.jpg" alt="produto 6">
-                <h3>Playtv</h3>
-                <p>R$ 149,90</p>
-            </div>
-            
-        </section>
+        <?php include 'backend/includes/produtos.php'; ?>
+        
     </main>
 
     <?php include 'frontend/includes/footer.php'; ?>
