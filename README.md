@@ -15,22 +15,22 @@ Aplicação que simula uma lojade roupas online (e-commerce), onde usários pode
 4. Execute a aplicação
 
 ## Estrutura das pastas:
-backend/
-  db.php
-frontend/
-  css/
-    style.css
-  includes/
-    footer.php
-    header.php
-  vestuario.php
-imagens/
-  banner1.jpg
-  banner2.jpg
-  banner3.jpg
-  logo.png
-  logoAba.png
-index.php
+- backend/
+-  db.php
+- frontend/
+-  css/
+-    style.css
+-  includes/
+-    footer.php
+-    header.php
+-  vestuario.php
+- imagens/
+-  banner1.jpg
+-  banner2.jpg
+-  banner3.jpg
+-  logo.png
+-  logoAba.png
+- index.php
 
 ## Tecnologias usadas:
 - PHP para criação das conexões com o Banco de Dados
