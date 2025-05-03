@@ -1,5 +1,5 @@
 <head>
-    <link rel="stylesheet" href="css\style.css">
+    <link rel="stylesheet" href="/frontend/css/style.css">
     <link rel="icon" type="image/png" href="\imagens\logoAba.png">
 </head>
 <header>
