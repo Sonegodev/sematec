@@ -1,5 +1,5 @@
 <head>
-    <link rel="stylesheet" href="/frontend/css/style.css">
+    <link rel="stylesheet" href="frontend/css/style.css">
 </head>
 <body>
     <footer>

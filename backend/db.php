@@ -1,18 +1,14 @@
 <?php
-$host = "localhost"; // Endereço do servidor
-$dbname = "durk"; // Nome do banco de dados
+$servername = "localhost";
+$username = "root"; // geralmente é root no XAMPP
+$password = "";     // normalmente sem senha no XAMPP
+$database = "durk";
 
-try {
-    // Cria a conexão
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", null, null);
-    
-    // Define o modo de erro do PDO para exceções
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    
-    // Mensagem de sucesso
-    echo "Conexão bem-sucedida!";
-} catch (PDOException $e) {
-    // Se houver erro na conexão, ele será capturado aqui
-    echo "Erro de conexão: " . $e->getMessage();
+// Criar conexão
+$conn = mysqli_connect($servername, $username, $password, $database);
+
+// Verificar conexão
+if (!$conn) {
+    die("Erro de conexão: " . mysqli_connect_error());
 }
 ?>

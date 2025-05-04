@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Durk</title>
-    <link rel="icon" type="image/png" href="imagens\logoAba.png">
+    <link rel="icon" type="image/png" href="imagens/logoAba.png">
     <style>
         
         body {
@@ -89,9 +89,9 @@
 
     <div class="carousel">
         <div class="slides">
-            <img src="\imagens\banner1.jpg" alt="carrosel 1">
-            <img src="\imagens\banner2.jpg" alt="carrosel 2">
-            <img src="\imagens\banner3.jpg" alt="carrosel 3">
+            <img src="imagens/banner1.jpg" alt="carrosel 1">
+            <img src="imagens/banner2.jpg" alt="carrosel 2">
+            <img src="imagens/banner3.jpg" alt="carrosel 3">
         </div>
     </div>
 
