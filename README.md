@@ -1,6 +1,6 @@
 # Durk Loja de Roupas - Projeto Sematec 2025
 
-Aplicação que simula uma lojade roupas online (e-commerce), onde usários podem visualizar produtos, adicionar produtos (admin), adicionar produtos ao carrinho e comprar
+Aplicação que simula uma loja de roupas online (e-commerce), onde usários podem visualizar produtos, adicionar produtos (admin), adicionar produtos ao carrinho e comprar
 
 ## Funcionalidades:
 - Visualização de produtos por categoria
@@ -16,6 +16,8 @@ Aplicação que simula uma lojade roupas online (e-commerce), onde usários pode
 
 ## Estrutura das pastas:
 - backend/
+-  includes/
+-   produtos.php
 -  db.php
 - frontend/
 -  css/
