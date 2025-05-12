@@ -24,8 +24,24 @@
             input{
                 padding: 15px;
                 border: none;
-                outline: none;z 
+                outline: none;
                 font-size: 15px;
+            }
+
+            button{
+                background-color:dodgerblue;
+                border: none;
+                padding: 15px;
+                width: 100%;
+                border-radius: 10px;
+                color: white;
+                font-size: 15px;
+                cursor:pointer;
+            }
+
+            button:hover{
+                background-color:deepskyblue;
+
             }
         </style>
     </head>
@@ -39,7 +55,7 @@
                 <input type="password" id="senha" name="email" placeholder="Senha">
                 <br>
                 <br>
-                <input type="submit" value="Enviar">
+                <button type="submit">Enviar</button>
             </div>
         </form>
     </body>
