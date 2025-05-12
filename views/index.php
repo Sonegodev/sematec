@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Durk</title>
-    <link rel="icon" type="image/png" href="imagens/logoAba.png">
+    <link rel="icon" type="image/png" href="imagens/logo.png">
     <style>
-        
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -78,14 +77,11 @@
             object-fit: cover;
             border-radius: 8px;
         }
-
     </style>
-
 </head>
-
 <body>
    
-    <?php include 'frontend/includes/header.php'; ?>
+    <?php include '../includes/header.php'; ?>
 
     <div class="carousel">
         <div class="slides">
@@ -100,17 +96,10 @@
             <h1>bem vindos a Durk</h1>
             <p class="subTexto">novos lançamentos sempre</p>
         </div>
-
-        <?php include 'backend/includes/produtos.php'; ?>
-        
+        <?php include '../backend/produtos.php'; ?>
     </main>
-
-    <?php include 'frontend/includes/footer.php'; ?>
-
+    <?php include '../includes/footer.php'; ?>
 </body>
-
 <script>
-
 </script>
-
 </html>

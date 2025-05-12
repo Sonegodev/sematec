@@ -1,5 +1,35 @@
 <head>
-    <link rel="stylesheet" href="frontend/css/style.css">
+<style>
+    footer {
+    background-color: #f9f9f9;
+    padding: 30px 40px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border-top: 1px solid #ccc;
+    font-family: Arial, sans-serif;
+}
+
+footer div {
+    margin: 10px;
+}
+
+footer h4 {
+    margin-bottom: 10px;
+}
+
+footer a {
+    display: block;
+    text-decoration: none;
+    color: black;
+    margin: 4px 0;
+}
+
+.icones img {
+    height: 24px;
+    margin-right: 10px;
+}
+</style>
 </head>
 <body>
     <footer>
@@ -26,7 +56,7 @@
             <h4>CONTATO</h4>
             <a href="#">Fale Conosco</a>
             <a href="#">(XX) XXXXX-XXXX</a>
-            <a href="mailto:atendimento@loja.com.br">sematecloja@fatec.com.br</a>
+            <a href="mailto:atendimento@loja.com.br">durk@fatec.com.br</a>
             <div class="icones" style="margin-top: 10px;">
                 <!-- icones -->
                 <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" width="24">
