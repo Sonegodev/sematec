@@ -43,7 +43,6 @@ include 'db.php';
 </style>
 
 <?php
-// Consulta para buscar 4 produtos
 $query = "SELECT * FROM produtos LIMIT 4";
 $result = mysqli_query($conn, $query);
 
