@@ -72,11 +72,15 @@ if (session_status() === PHP_SESSION_NONE) {
 
     <div class="headerDir">
         <div class="pesquisa">
-            <input type="text" placeholder="Procurar">
+            <form action="../views/busca.php" method="GET" class="flex items-center">
+                <input type="text" name="q" placeholder="Procurar"
+                    class="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-800" required>
+            </form>
         </div>
+        <a href="../views/favoritos.php">🖤</a>
         <a href="<?= isset($_SESSION['usuario_id']) ? '../views/minhaconta.php' : '../views/login.php' ?>" title="Minha Conta">
             👤
         </a>
-        <a href="">🛒</a>
+        <a href="../views/carrinho.php">🛒</a>
     </div>
 </header>
