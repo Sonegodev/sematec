@@ -2,6 +2,7 @@
 <html lang="pt-br">
 
 <head>
+    <script src="https://cdn.tailwindcss.com"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Painel</title>
@@ -83,9 +84,7 @@
         <nav class="admin-nav">
             <ul>
                 <li><a href="../views/index.php">Dashboard</a></li>
-                <li><a href="../users.php">Usuários</a></li>
-                <li><a href="../produtos.php">Produtos</a></li>
-                <li><a href="logout.php" class="logout-btn">Sair</a></li>
+                <li><a href="index.php">Painel</a></li>
             </ul>
         </nav>
     </header>

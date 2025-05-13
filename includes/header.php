@@ -77,10 +77,24 @@ if (session_status() === PHP_SESSION_NONE) {
                     class="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-800" required>
             </form>
         </div>
+
         <a href="../views/favoritos.php">🖤</a>
+
         <a href="<?= isset($_SESSION['usuario_id']) ? '../views/minhaconta.php' : '../views/login.php' ?>" title="Minha Conta">
             👤
         </a>
+
         <a href="../views/carrinho.php">🛒</a>
+
+        <?php if (isset($_SESSION['usuario_id']) && $_SESSION['tipo_usuario'] === 'admin'): ?>
+            <a href="../admin/index.php" class="text-sm font-semibold px-3 py-2 bg-black text-white rounded hover:bg-gray-800 transition">
+                Admin
+            </a>
+        <?php endif; ?>
+
+        <?php if (isset($_SESSION['usuario_id'])): ?>
+            <a href="../backend/logout.php" title="Sair" style="font-size: 20px;">🚪</a>
+        <?php endif; ?>
+
     </div>
 </header>

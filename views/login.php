@@ -20,12 +20,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $_SESSION['usuario_id'] = $usuario['id'];
             $_SESSION['usuario_nome'] = $usuario['nome'];
             $_SESSION['tipo_usuario'] = $usuario['tipo_usuario'];
-
-            header("Location: ../views/index.php");
+        
+            if ($usuario['tipo_usuario'] === 'admin') {
+                header("Location: ../admin/index.php");
+            } else {
+                header("Location: ../views/index.php");
+            }
             exit();
-        } else {
-            $erroLogin = 'Senha incorreta.';
-        }
+        }        
     } else {
         $erroLogin = 'Email não encontrado.';
     }

@@ -1,3 +1,5 @@
+<?php include 'includes/auth.php'; ?>
+
 <head>
     <link rel="icon" type="image/png" href="includes/imagens/logo.png">
 </head>
@@ -19,12 +21,12 @@
         <div class="card">
             <h2>Relatórios</h2>
             <p>Verifique relatórios de vendas e estoque.</p>
-            <a href="reports.php" class="btn">Acessar</a>
+            <a href="#" class="btn">Acessar</a>
         </div>
         <div class="card">
             <h2>Configurações</h2>
             <p>Altere as configurações do sistema.</p>
-            <a href="settings.php" class="btn">Acessar</a>
+            <a href="#" class="btn">Acessar</a>
         </div>
     </div>
 </main>
