@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,7 +48,7 @@
             100% {
                 transform: translateX(0);
             }
-        }     
+        }
 
         .produtos {
             display: grid;
@@ -77,10 +78,21 @@
             object-fit: cover;
             border-radius: 8px;
         }
+
+        .msgIndex {
+            margin: 0;
+            text-align: center;
+        }
+
+        .subTexto {
+            padding-top: 200px;
+        }
+        
     </style>
 </head>
+
 <body>
-   
+
     <?php include '../includes/header.php'; ?>
 
     <div class="carousel">
@@ -96,10 +108,13 @@
             <h1>bem vindos a Durk</h1>
             <p class="subTexto">novos lançamentos sempre</p>
         </div>
-        <?php include '../backend/produtos.php'; ?>
+        <?php // include '../backend/produtos.php'; ?>
     </main>
+
     <?php include '../includes/footer.php'; ?>
+
 </body>
 <script>
 </script>
+
 </html>

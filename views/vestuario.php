@@ -60,6 +60,18 @@
         h1 {
             text-align: center;
         }
+
+        .msgIndex {
+            margin: 0;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .subTexto {
+            padding-top: 200px;
+            font-family: Arial, sans-serif;
+        }
+
     </style>
 </head>
 
@@ -67,37 +79,41 @@
     <?php include '../includes/header.php'; ?>
 
     <main>
-        <h1>Vestuário - Todos os Produtos</h1>
+        <div class="msgIndex">
+            <h1>Vestuário</h1>
+            <p class="subTexto">todos nossos produtos</p>
+        </div>
+        
 
         <div class="produtos">
             <?php
-            include '../backend/db.php';
+            // include '../backend/db.php';
 
-            $query = "
-                SELECT p.nome, p.preco, c.nome AS categoria, ip.url_imagem 
-                FROM produtos p
-                JOIN categorias c ON p.categoria_id = c.id
-                LEFT JOIN imagens_produto ip ON p.id = ip.produto_id 
-                GROUP BY p.id
-                ORDER BY p.nome ASC;
-            ";
-            $result = mysqli_query($conn, $query);
+            // $query = "
+            //     SELECT p.nome, p.preco, c.nome AS categoria, ip.url_imagem 
+            //     FROM produtos p
+            //     JOIN categorias c ON p.categoria_id = c.id
+            //     LEFT JOIN imagens_produto ip ON p.id = ip.produto_id 
+            //     GROUP BY p.id
+            //     ORDER BY p.nome ASC;
+            // ";
+            // $result = mysqli_query($conn, $query);
 
-            if ($result && mysqli_num_rows($result) > 0) {
-                while ($produto = mysqli_fetch_assoc($result)) {
-                    echo '<div class="produto">';
-                    echo '<img src="../views/imagens/' . htmlspecialchars($produto['url_imagem']) . '" alt="' . htmlspecialchars($produto['nome']) . '">';
-                    echo '<h3>' . htmlspecialchars($produto['nome']) . '</h3>';
-                    echo '<p>Categoria: ' . htmlspecialchars($produto['categoria']) . '</p>';
-                    echo '<p>R$ ' . number_format($produto['preco'], 2, ',', '.') . '</p>';
-                    echo '<button>Comprar</button>';
-                    echo '</div>';
-                }
-            } else {
-                echo '<p>Nenhum produto disponível no momento.</p>';
-            }
+            // if ($result && mysqli_num_rows($result) > 0) {
+            //     while ($produto = mysqli_fetch_assoc($result)) {
+            //         echo '<div class="produto">';
+            //         echo '<img src="../views/imagens/' . htmlspecialchars($produto['url_imagem']) . '" alt="' . htmlspecialchars($produto['nome']) . '">';
+            //         echo '<h3>' . htmlspecialchars($produto['nome']) . '</h3>';
+            //         echo '<p>Categoria: ' . htmlspecialchars($produto['categoria']) . '</p>';
+            //         echo '<p>R$ ' . number_format($produto['preco'], 2, ',', '.') . '</p>';
+            //         echo '<button>Comprar</button>';
+            //         echo '</div>';
+            //     }
+            // } else {
+            //     echo '<p>Nenhum produto disponível no momento.</p>';
+            // }
 
-            mysqli_close($conn);
+            // mysqli_close($conn);
             ?>
         </div>
     </main>
