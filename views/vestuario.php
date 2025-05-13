@@ -68,7 +68,6 @@
         }
 
         .subTexto {
-            padding-top: 200px;
             font-family: Arial, sans-serif;
         }
 
