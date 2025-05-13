@@ -48,14 +48,6 @@
         border-radius: 10px;
     }
 
-    .msgIndex {
-        margin: 0;
-        text-align: center;
-    }
-
-    .subTexto {
-        padding-top: 200px;
-    }
     </style>
 </head>
 
@@ -77,6 +69,7 @@
         <div class="pesquisa">
             <input type="text" placeholder="Procurar">
         </div>
-        <span>👤 🛒</span>
+        <a href="../views/login.php">👤</a>
+        <span>🛒</span>
     </div>
 </header>
