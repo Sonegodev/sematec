@@ -1,89 +1,58 @@
-<?php include 'includes/auth.php'; ?>
+<?php
+include 'includes/auth.php';
+include '../backend/db.php';
 
-<head>
-    <link rel="icon" type="image/png" href="includes/imagens/logo.png">
-</head>
-<?php include 'includes/header.php'; ?>
-<main class="dashboard">
-    <h1>Bem-vindo ao Painel Administrativo</h1>
+$totalUsuarios = $conn->query("SELECT COUNT(*) AS total FROM users")->fetch_assoc()['total'];
+$totalProdutos = $conn->query("SELECT COUNT(*) AS total FROM produtos")->fetch_assoc()['total'];
+$totalPedidos = $conn->query("SELECT COUNT(*) AS total FROM pedidos")->fetch_assoc()['total'];
 
-    <div class="dashboard-cards">
-        <div class="card">
-            <h2>Usuários</h2>
-            <p>Gerencie todos os usuários cadastrados na loja.</p>
-            <a href="users.php" class="btn">Acessar</a>
-        </div>
-        <div class="card">
-            <h2>Produtos</h2>
-            <p>Visualize, adicione e edite os produtos da loja.</p>
-            <a href="produtos.php" class="btn">Acessar</a>
-        </div>
-        <div class="card">
-            <h2>Relatórios</h2>
-            <p>Verifique relatórios de vendas e estoque.</p>
-            <a href="#" class="btn">Acessar</a>
-        </div>
-        <div class="card">
-            <h2>Configurações</h2>
-            <p>Altere as configurações do sistema.</p>
-            <a href="#" class="btn">Acessar</a>
-        </div>
+include 'includes/header.php';
+?>
+
+<main class="bg-gradient-to-b from-gray-100 to-white min-h-screen p-8 font-sans">
+  <div class="max-w-7xl mx-auto space-y-12">
+    <h1 class="text-3xl font-bold text-gray-800 text-center">Painel Administrativo</h1>
+
+    <!-- cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-xl transition">
+        <h2 class="text-sm text-gray-500 uppercase">Usuários Cadastrados</h2>
+        <p class="text-4xl font-bold text-blue-600 mt-2"><?= $totalUsuarios ?></p>
+      </div>
+      <div class="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-xl transition">
+        <h2 class="text-sm text-gray-500 uppercase">Produtos Ativos</h2>
+        <p class="text-4xl font-bold text-green-600 mt-2"><?= $totalProdutos ?></p>
+      </div>
+      <div class="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-xl transition">
+        <h2 class="text-sm text-gray-500 uppercase">Total de Pedidos</h2>
+        <p class="text-4xl font-bold text-purple-600 mt-2"><?= $totalPedidos ?></p>
+      </div>
     </div>
+
+    <!-- botões  -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="bg-white rounded-2xl shadow p-6 flex flex-col items-center text-center hover:shadow-xl transition">
+        <h2 class="text-lg font-bold text-gray-800 mb-2">Usuários</h2>
+        <p class="text-sm text-gray-500 mb-4">Gerencie os usuários da loja.</p>
+        <a href="users.php" class="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-700 transition">Acessar</a>
+      </div>
+      <div class="bg-white rounded-2xl shadow p-6 flex flex-col items-center text-center hover:shadow-xl transition">
+        <h2 class="text-lg font-bold text-gray-800 mb-2">Produtos</h2>
+        <p class="text-sm text-gray-500 mb-4">Controle e cadastre produtos.</p>
+        <a href="produtos.php" class="bg-green-600 text-white px-5 py-2 rounded-full hover:bg-green-700 transition">Acessar</a>
+      </div>
+      <div class="bg-white rounded-2xl shadow p-6 flex flex-col items-center text-center hover:shadow-xl transition">
+        <h2 class="text-lg font-bold text-gray-800 mb-2">Filtros</h2>
+        <p class="text-sm text-gray-500 mb-4">Gerencie marcas, tamanhos e categorias.</p>
+        <a href="filtros.php" class="bg-yellow-500 text-white px-5 py-2 rounded-full hover:bg-yellow-600 transition">Acessar</a>
+      </div>
+      <div class="bg-white rounded-2xl shadow p-6 flex flex-col items-center text-center hover:shadow-xl transition">
+        <h2 class="text-lg font-bold text-gray-800 mb-2">Pedidos</h2>
+        <p class="text-sm text-gray-500 mb-4">Visualize e controle os pedidos.</p>
+        <a href="pedidos.php" class="bg-gray-700 text-white px-5 py-2 rounded-full hover:bg-gray-800 transition">Acessar</a>
+      </div>
+    </div>
+  </div>
 </main>
-<style>
-    main {
-        font-family: Arial, sans-serif;
-    }
-    .dashboard {
-        padding: 20px;
-        text-align: center;
-    }
 
-    .dashboard h1 {
-        margin-bottom: 20px;
-        font-size: 2em;
-    }
-
-    .dashboard-cards {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 20px;
-        margin-top: 20px;
-    }
-
-    .card {
-        background-color: #fff;
-        border-radius: 8px;
-        padding: 20px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease;
-    }
-
-    .card:hover {
-        transform: translateY(-5px);
-    }
-
-    .card h2 {
-        margin: 0 0 10px;
-        font-size: 1.5em;
-    }
-
-    .card p {
-        margin: 10px 0 15px;
-        color: #666;
-    }
-
-    .btn {
-        background-color: #007bff;
-        color: white;
-        text-decoration: none;
-        padding: 8px 12px;
-        border-radius: 5px;
-        display: inline-block;
-    }
-
-    .btn:hover {
-        background-color: #0056b3;
-    }
-</style>
 <?php include 'includes/footer.php'; ?>
