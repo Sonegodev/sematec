@@ -1,68 +1,47 @@
-<head>
-<style>
-    footer {
-    background-color: #f9f9f9;
-    padding: 30px 40px;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    border-top: 1px solid #ccc;
-    font-family: Arial, sans-serif;
-}
+<footer class="bg-gray-100 border-t border-gray-200 mt-16">
+  <div class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-10 text-sm text-gray-700">
+    <div>
+      <h4 class="font-semibold text-gray-800 mb-4 uppercase">Sobre</h4>
+      <ul class="space-y-2">
+        <li><a href="#" class="hover:underline">Quem Somos</a></li>
+        <li><a href="#" class="hover:underline">Perguntas Frequentes</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="font-semibold text-gray-800 mb-4 uppercase">Meus Dados</h4>
+      <ul class="space-y-2">
+        <li><a href="#" class="hover:underline">Minha Conta</a></li>
+        <li><a href="#" class="hover:underline">Meus Pedidos</a></li>
+        <li><a href="#" class="hover:underline">Lista de Desejos</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="font-semibold text-gray-800 mb-4 uppercase">Políticas</h4>
+      <ul class="space-y-2">
+        <li><a href="#" class="hover:underline">Trocas e Devoluções</a></li>
+        <li><a href="#" class="hover:underline">Entrega e Frete</a></li>
+        <li><a href="#" class="hover:underline">Pagamento</a></li>
+        <li><a href="#" class="hover:underline">Privacidade</a></li>
+        <li><a href="#" class="hover:underline">Termos de Uso</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="font-semibold text-gray-800 mb-4 uppercase">Contato</h4>
+      <ul class="space-y-2">
+        <li><a href="#" class="hover:underline">Fale Conosco</a></li>
+        <li><a href="#" class="hover:underline">(XX) XXXXX-XXXX</a></li>
+        <li><a href="mailto:durk@fatec.com.br" class="hover:underline">durk@fatec.com.br</a></li>
+      </ul>
+      <div class="flex space-x-4 mt-4">
+        <a href="#" class="hover:scale-110 transition-transform"><i class="fab fa-instagram text-xl text-pink-600"></i></a>
+        <a href="#" class="hover:scale-110 transition-transform"><i class="fab fa-facebook text-xl text-blue-600"></i></a>
+        <a href="#" class="hover:scale-110 transition-transform"><i class="fab fa-whatsapp text-xl text-green-600"></i></a>
+      </div>
+    </div>
+  </div>
+  <div class="text-center text-xs text-gray-400 py-4 border-t border-gray-200">
+    &copy; <?php echo date('Y'); ?> Loja Durk. Todos os direitos reservados.
+  </div>
+</footer>
 
-footer div {
-    margin: 10px;
-}
-
-footer h4 {
-    margin-bottom: 10px;
-}
-
-footer a {
-    display: block;
-    text-decoration: none;
-    color: black;
-    margin: 4px 0;
-}
-
-.icones img {
-    height: 24px;
-    margin-right: 10px;
-}
-</style>
-</head>
-<body>
-    <footer>
-        <div>
-            <h4>SOBRE</h4>
-            <a href="#">Quem Somos</a>
-            <a href="#">Perguntas Frequentes</a>
-        </div>
-        <div>
-            <h4>MEUS DADOS</h4>
-            <a href="#">Minha Conta</a>
-            <a href="#">Meus Pedidos</a>
-            <a href="#">Lista de Desejos</a>
-        </div>
-        <div>
-            <h4>POLÍTICAS</h4>
-            <a href="#">Trocas e Devoluções</a>
-            <a href="#">Entrega e Frete</a>
-            <a href="#">Pagamento</a>
-            <a href="#">Privacidade</a>
-            <a href="#">Termos de Uso</a>
-        </div>
-        <div>
-            <h4>CONTATO</h4>
-            <a href="#">Fale Conosco</a>
-            <a href="#">(XX) XXXXX-XXXX</a>
-            <a href="mailto:atendimento@loja.com.br">durk@fatec.com.br</a>
-            <div class="icones" style="margin-top: 10px;">
-                <!-- icones -->
-                <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" width="24">
-                <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" width="24">
-                <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp" width="24">
-            </div>
-        </div>
-    </footer>
-</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>

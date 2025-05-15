@@ -2,93 +2,39 @@
 <html lang="pt-br">
 
 <head>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="../views/imagens/logo.png">
-    <title>Admin - Painel</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-        .admin-header {
-            background-color: #333;
-            color: white;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo-group {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo1 img {
-            height: 60px;
-            width: auto;
-        }
-
-        .logo h1 {
-            margin: 0;
-            font-size: 1.5em;
-        }
-
-        .admin-nav ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            gap: 20px;
-        }
-
-        .admin-nav li {
-            display: inline;
-        }
-
-        .admin-nav a {
-            text-decoration: none;
-            color: white;
-            font-weight: bold;
-        }
-
-        .admin-nav a:hover {
-            color: #ddd;
-        }
-
-        .logout-btn {
-            background-color: #ff4d4d;
-            padding: 5px 10px;
-            border-radius: 5px;
-            text-align: center;
-        }
-
-        .logout-btn:hover {
-            background-color: #e60000;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="../views/imagens/logo.png">
+  <title>Admin - Painel</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 
-<body>
-    <header class="admin-header">
-        <div class="logo-group">
-            <div class="logo1">
-                <img src="../views/imagens/logoAba.png" alt="Durk Logo">
-            </div>
-            <div class="logo">
-                <h1>Admin</h1>
-            </div>
-        </div>
-        <nav class="admin-nav">
-            <ul>
-                <li><a href="../views/index.php">Dashboard</a></li>
-                <li><a href="index.php">Painel</a></li>
-            </ul>
-        </nav>
-    </header>
+<body class="bg-gray-50 font-sans">
+  <header class="bg-gray-900 text-white shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <!-- Logo e título -->
+      <div class="flex items-center gap-4">
+        <img src="../views/imagens/logoAba.png" alt="Durk Logo" class="h-12 w-auto">
+        <h1 class="text-2xl font-bold tracking-wide">Painel Admin</h1>
+      </div>
+
+      <!-- Navegação -->
+      <nav>
+        <ul class="flex items-center gap-6 text-sm font-medium">
+          <li><a href="../views/index.php" class="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition"><i class="fa-solid fa-house"></i> Website Loja</a></li>
+          <li><a href="index.php" class="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition"><i class="fa-solid fa-sliders"></i> Painel</a></li>
+        </ul>
+      </nav>
+
+      <!-- Logout -->
+      <div>
+        <a href="../backend/logout.php" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm font-semibold flex items-center gap-2">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i> Sair
+        </a>
+      </div>
+    </div>
+  </header>
 </body>
 
 </html>

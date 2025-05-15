@@ -6,30 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Durk</title>
     <link rel="icon" type="image/png" href="imagens/logo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@700&display=swap" rel="stylesheet">
     <style>
         body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-
-        .carousel {
-            width: 100%;
-            max-height: 400px;
-            overflow: hidden;
-            position: relative;
-            margin: 0 auto;
-        }
-
-        .slides {
-            display: flex;
-            width: 300%;
-            animation: slide 10s infinite;
-        }
-
-        .slides img {
-            width: 100%;
-            height: auto;
-            flex-shrink: 0;
+            font-family: 'Inter', sans-serif;
         }
 
         @keyframes slide {
@@ -50,71 +32,55 @@
             }
         }
 
-        .produtos {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin-top: 40px;
-            text-align: left;
+        .carousel-inner {
+            animation: slide 12s infinite;
         }
-
-        .produto {
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            padding: 16px;
-            transition: transform 0.3s, box-shadow 0.3s;
-            background-color: #fff;
-            min-height: 300px;
-        }
-
-        .produto:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .produto img {
-            width: 100%;
-            max-height: 250px;
-            object-fit: cover;
-            border-radius: 8px;
-        }
-
-        .msgIndex {
-            margin: 0;
-            text-align: center;
-        }
-
-        .subTexto {
-            padding-top: 200px;
-        }
-        
     </style>
 </head>
 
-<body>
-
+<body class="bg-gray-100">
     <?php include '../includes/header.php'; ?>
 
-    <div class="carousel">
-        <div class="slides">
-            <img src="imagens/banner1.jpg" alt="carrosel 1">
-            <img src="imagens/banner2.jpg" alt="carrosel 2">
-            <img src="imagens/banner3.jpg" alt="carrosel 3">
+    <div class="relative w-full overflow-hidden max-h-[450px]">
+        <div class="flex w-[300%] carousel-inner">
+            <img src="imagens/banner1.jpg" alt="carrosel 1" class="w-full object-cover">
+            <img src="imagens/banner2.jpg" alt="carrosel 2" class="w-full object-cover">
+            <img src="imagens/banner3.jpg" alt="carrosel 3" class="w-full object-cover">
         </div>
     </div>
 
-    <main>
-        <div class="msgIndex">
-            <h1>bem vindos a Durk</h1>
-            <p class="subTexto">novos lançamentos sempre</p>
+    <main class="max-w-7xl mx-auto px-4 py-12">
+        <div class="text-center mb-10">
+            <h1 class="text-4xl font-bold text-gray-900">
+                Bem-vindo à
+                <span class="text-purple-600" style="font-family: 'Source Code Pro', monospace;">Durk</span>
+            </h1>
+            <p class="text-gray-500 mt-2">Novos lançamentos sempre para você!</p>
         </div>
-        <?php // include '../backend/produtos.php'; ?>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="bg-white shadow rounded-lg p-4">
+                <div class="h-48 bg-gray-200 rounded mb-4"></div>
+                <h3 class="text-lg font-semibold">Nome do Produto</h3>
+                <p class="text-sm text-gray-500">Categoria</p>
+                <p class="text-green-600 font-bold mt-1">R$ 99,90</p>
+            </div>
+            <div class="bg-white shadow rounded-lg p-4">
+                <div class="h-48 bg-gray-200 rounded mb-4"></div>
+                <h3 class="text-lg font-semibold">Nome do Produto</h3>
+                <p class="text-sm text-gray-500">Categoria</p>
+                <p class="text-green-600 font-bold mt-1">R$ 149,90</p>
+            </div>
+            <div class="bg-white shadow rounded-lg p-4">
+                <div class="h-48 bg-gray-200 rounded mb-4"></div>
+                <h3 class="text-lg font-semibold">Nome do Produto</h3>
+                <p class="text-sm text-gray-500">Categoria</p>
+                <p class="text-green-600 font-bold mt-1">R$ 199,90</p>
+            </div>
+        </div>
     </main>
 
     <?php include '../includes/footer.php'; ?>
-
 </body>
-<script>
-</script>
 
 </html>

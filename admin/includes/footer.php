@@ -1,42 +1,26 @@
-<footer class="admin-footer">
-  <p>&copy; <?php echo date("Y"); ?> Durk - Todos os direitos reservados.</p>
-  <p>Desenvolvido por Erk & Dunk</p>
+<footer class="bg-black text-white text-center py-6 w-full mt-auto shadow-inner">
+  <div class="max-w-6xl mx-auto px-4">
+    <p class="text-sm font-semibold">&copy; <?php echo date("Y"); ?> Durk - Todos os direitos reservados.</p>
+    <p class="text-xs text-gray-400 mt-1">Desenvolvido por <span class="text-purple-400 font-medium">Erk & Dunk</span></p>
+  </div>
 </footer>
-</body>
-</html>
 
 <style>
   html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Inter', sans-serif;
   }
-
   .wrapper {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
   }
-
   main {
     flex: 1;
   }
-
-  .admin-footer {
-    background-color: #000;
-    color: white;
-    text-align: center;
-    padding: 15px;
-    width: 100%;
-  }
-
-  .admin-footer p {
-    margin: 5px 0;
-    font-size: 0.9em;
-  }
-
-  .admin-footer p:first-child {
-    font-weight: bold;
-  }
 </style>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
