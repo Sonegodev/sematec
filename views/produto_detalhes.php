@@ -21,8 +21,23 @@ if (!$produto) {
 }
 $imagens = mysqli_query($conn, "SELECT url_imagem FROM imagens_produto WHERE produto_id = $id");
 ?>
+<?php
+include '../includes/verifica_login.php';
+
+$isFavoritado = false;
+if (isset($_SESSION['usuario_id'])) {
+  $userId = $_SESSION['usuario_id'];
+  $check = $conn->prepare("SELECT 1 FROM favoritos WHERE user_id = ? AND produto_id = ?");
+  $check->bind_param("ii", $userId, $id);
+  $check->execute();
+  $resultCheck = $check->get_result();
+  $isFavoritado = $resultCheck->num_rows > 0;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,51 +48,101 @@ $imagens = mysqli_query($conn, "SELECT url_imagem FROM imagens_produto WHERE pro
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <style>
-    body { font-family: 'Inter', sans-serif; }
-    .scrollbar-hide::-webkit-scrollbar { display: none; }
-    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+    }
+
+    .scrollbar-hide {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
   </style>
 </head>
+
 <body class="bg-gray-50">
-<main class="max-w-7xl mx-auto px-6 py-10 animate__animated animate__fadeIn">
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
-    <div class="space-y-4" data-aos="fade-right">
-      <?php if ($img = mysqli_fetch_assoc($imagens)) {
-        echo '<img src="../' . htmlspecialchars($img['url_imagem']) . '" class="rounded-xl w-full max-h-[480px] object-contain bg-white shadow" alt="Imagem do produto">';
-      }
-      echo '<div class="flex gap-3 overflow-x-auto scrollbar-hide">';
-      while ($img = mysqli_fetch_assoc($imagens)) {
-        echo '<img src="../' . htmlspecialchars($img['url_imagem']) . '" class="w-20 h-20 object-contain bg-white rounded-lg shadow cursor-pointer">';
-      }
-      echo '</div>';
-      ?>
-    </div>
+  <main class="max-w-7xl mx-auto px-6 py-10 animate__animated animate__fadeIn">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+      <div class="space-y-4" data-aos="fade-right">
+        <?php if ($img = mysqli_fetch_assoc($imagens)) {
+          echo '<img src="../' . htmlspecialchars($img['url_imagem']) . '" class="rounded-xl w-full max-h-[480px] object-contain bg-white shadow" alt="Imagem do produto">';
+        }
+        echo '<div class="flex gap-3 overflow-x-auto scrollbar-hide">';
+        while ($img = mysqli_fetch_assoc($imagens)) {
+          echo '<img src="../' . htmlspecialchars($img['url_imagem']) . '" class="w-20 h-20 object-contain bg-white rounded-lg shadow cursor-pointer">';
+        }
+        echo '</div>';
+        ?>
+      </div>
 
-    <div class="space-y-6" data-aos="fade-left">
-      <h1 class="text-3xl font-bold text-gray-900"><?php echo htmlspecialchars($produto['nome']); ?></h1>
-      <p class="text-sm text-gray-500">
-        Categoria: <strong><?php echo htmlspecialchars($produto['categoria']); ?></strong> | Marca: <strong><?php echo htmlspecialchars($produto['marca']); ?></strong>
-      </p>
-      <p class="text-4xl font-extrabold text-green-600">R$ <?php echo number_format($produto['preco'], 2, ',', '.'); ?></p>
-      <p class="text-gray-700 leading-relaxed">
-        <?php echo nl2br(htmlspecialchars($produto['descricao'] ?? 'Produto sem descrição detalhada.')); ?>
-      </p>
+      <div class="space-y-6" data-aos="fade-left">
+        <h1 class="text-3xl font-bold text-gray-900"><?php echo htmlspecialchars($produto['nome']); ?></h1>
+        <p class="text-sm text-gray-500">
+          Categoria: <strong><?php echo htmlspecialchars($produto['categoria']); ?></strong> | Marca: <strong><?php echo htmlspecialchars($produto['marca']); ?></strong>
+        </p>
+        <p class="text-4xl font-extrabold text-green-600">R$ <?php echo number_format($produto['preco'], 2, ',', '.'); ?></p>
+        <p class="text-gray-700 leading-relaxed">
+          <?php echo nl2br(htmlspecialchars($produto['descricao'] ?? 'Produto sem descrição detalhada.')); ?>
+        </p>
 
-      <div class="flex gap-4 flex-wrap pt-4">
-        <button class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg text-lg font-semibold transition shadow">
-          <i class="fa-solid fa-cart-shopping mr-2"></i> Adicionar ao carrinho
-        </button>
-        <button class="flex items-center justify-center w-14 h-14 rounded-lg border border-gray-300 hover:border-red-500 hover:text-red-500 transition">
-          <i class="fa-solid fa-heart text-xl"></i>
-        </button>
-        <button class="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg text-lg font-semibold transition shadow">
-          <i class="fa-solid fa-bolt mr-2"></i> Comprar agora
-        </button>
+        <div class="flex gap-4 flex-wrap pt-4">
+          <button class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg text-lg font-semibold transition shadow">
+            <i class="fa-solid fa-cart-shopping mr-2"></i> Adicionar ao carrinho
+          </button>
+          <button
+            type="button"
+            class="toggle-fav-detalhe flex items-center justify-center w-14 h-14 rounded-lg border transition text-xl 
+         <?= $isFavoritado ? 'border-red-500 text-red-500 hover:text-gray-400 hover:border-gray-400' : 'border-gray-300 text-gray-400 hover:text-red-500 hover:border-red-500' ?>"
+            data-id="<?= $produto['id'] ?>"
+            data-acao="<?= $isFavoritado ? 'remover' : 'adicionar' ?>"
+            title="Favoritar">
+            <i class="fa-solid fa-heart"></i>
+          </button>
+
+          <button class="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg text-lg font-semibold transition shadow">
+            <i class="fa-solid fa-bolt mr-2"></i> Comprar agora
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-</main>
-<script>AOS.init();</script>
-<?php include '../includes/footer.php'; ?>
+  </main>
+  <script>
+    AOS.init();
+  </script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('.toggle-fav-detalhe').click(function() {
+        const btn = $(this);
+        const produtoId = btn.data('id');
+        const acaoAtual = btn.data('acao');
+
+        $.post('../backend/favoritar.php', {
+          produto_id: produtoId,
+          acao: acaoAtual
+        }, function() {
+          if (acaoAtual === 'adicionar') {
+            btn
+              .removeClass('border-gray-300 text-gray-400')
+              .addClass('border-red-500 text-red-500')
+              .data('acao', 'remover');
+          } else {
+            btn
+              .removeClass('border-red-500 text-red-500')
+              .addClass('border-gray-300 text-gray-400')
+              .data('acao', 'adicionar');
+          }
+        }).fail(function() {
+          alert("Erro ao processar favorito. Faça login novamente.");
+        });
+      });
+    });
+  </script>
+
+  <?php include '../includes/footer.php'; ?>
 </body>
+
 </html>

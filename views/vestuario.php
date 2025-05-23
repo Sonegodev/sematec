@@ -1,5 +1,19 @@
-<?php include '../includes/header.php'; ?>
-<?php include '../backend/db.php'; ?>
+<?php
+session_start();
+include '../includes/verifica_login.php';
+include '../includes/header.php';
+include '../backend/db.php';
+
+$userId = $_SESSION['usuario_id'];
+
+// Buscar os produtos favoritados
+$favoritados = [];
+$favQuery = "SELECT produto_id FROM favoritos WHERE user_id = $userId";
+$favResult = mysqli_query($conn, $favQuery);
+while ($row = mysqli_fetch_assoc($favResult)) {
+  $favoritados[] = $row['produto_id'];
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -7,6 +21,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vestuário - Loja Durk</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -24,6 +39,8 @@
       opacity: 1;
       transform: translateY(0);
     }
+    .heart-red { color: #ef4444; } /* Tailwind red-500 */
+    .heart-gray { color: #9ca3af; } /* Tailwind gray-400 */
   </style>
 </head>
 <body class="bg-gradient-to-b from-blue-50 to-white min-h-screen">
@@ -31,7 +48,6 @@
 <main class="max-w-[1400px] mx-auto px-6 py-10">
   <h1 class="text-5xl font-extrabold text-center text-gray-900 mb-2 animate__animated animate__fadeInDown">🛍️ Vestuário</h1>
   <p class="text-center text-gray-600 text-lg mb-10 animate__animated animate__fadeInUp">Explore os produtos que vão transformar seu estilo</p>
-
   <form method="GET" class="bg-white rounded-2xl shadow-lg p-6 mb-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 animate__animated animate__fadeIn">
     <?php
       function filtroSelect($label, $name, $query, $valueField, $textField) {
@@ -40,7 +56,8 @@
         echo "<option value=''>Todas</option>";
         $res = $conn->query($query);
         while ($row = $res->fetch_assoc()) {
-          echo "<option value='{$row[$valueField]}'>" . htmlspecialchars($row[$textField]) . "</option>";
+          $selected = isset($_GET[$name]) && $_GET[$name] == $row[$valueField] ? 'selected' : '';
+          echo "<option value='{$row[$valueField]}' $selected>" . htmlspecialchars($row[$textField]) . "</option>";
         }
         echo "</select></div>";
       }
@@ -53,14 +70,14 @@
       <label class="block text-sm font-semibold text-gray-700 mb-1">Gênero</label>
       <select name="genero" class="w-full border border-gray-300 rounded px-3 py-2">
         <option value="">Todos</option>
-        <option value="masculino">Masculino</option>
-        <option value="feminino">Feminino</option>
-        <option value="unissex">Unissex</option>
+        <option value="masculino" <?= isset($_GET['genero']) && $_GET['genero'] === 'masculino' ? 'selected' : '' ?>>Masculino</option>
+        <option value="feminino" <?= isset($_GET['genero']) && $_GET['genero'] === 'feminino' ? 'selected' : '' ?>>Feminino</option>
+        <option value="unissex" <?= isset($_GET['genero']) && $_GET['genero'] === 'unissex' ? 'selected' : '' ?>>Unissex</option>
       </select>
     </div>
     <div>
       <label class="block text-sm font-semibold text-gray-700 mb-1">Preço até</label>
-      <input type="text" name="preco" placeholder="R$" class="w-full border border-gray-300 rounded px-3 py-2" />
+      <input type="text" name="preco" placeholder="R$" value="<?= isset($_GET['preco']) ? htmlspecialchars($_GET['preco']) : '' ?>" class="w-full border border-gray-300 rounded px-3 py-2" />
     </div>
     <div class="flex items-end">
       <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded transition duration-300">Filtrar</button>
@@ -93,9 +110,14 @@
 
     if ($result && mysqli_num_rows($result) > 0) {
       while ($produto = mysqli_fetch_assoc($result)) {
+        $isFavoritado = in_array($produto['id'], $favoritados);
+        $heartClass = $isFavoritado ? 'heart-red' : 'heart-gray';
+        $acao = $isFavoritado ? 'remover' : 'adicionar';
         echo '<div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition transform hover:-translate-y-1 hover:scale-105 duration-300 group flex flex-col relative overflow-hidden" data-aos="zoom-in">';
         echo '<div class="absolute top-3 right-3 fav-btn opacity-0 transform -translate-y-3 transition duration-300">';
-        echo '<button title="Favoritar" class="text-gray-400 hover:text-red-500 text-xl"><i class="fa-solid fa-heart"></i></button>';
+        echo '<button type="button" class="text-xl toggle-fav ' . $heartClass . '" data-id="' . $produto['id'] . '" data-acao="' . $acao . '" title="Favoritar">';
+        echo '<i class="fa-solid fa-heart"></i>';
+        echo '</button>';
         echo '</div>';
         echo '<img src="../' . htmlspecialchars($produto['imagem']) . '" alt="' . htmlspecialchars($produto['nome']) . '" class="w-full aspect-[3/4] h-64 object-contain rounded-t-xl">';
         echo '<div class="p-4 flex flex-col flex-grow">';
@@ -116,6 +138,27 @@
     ?>
   </section>
 </main>
+
+<script>
+  $(document).ready(function() {
+    $('.toggle-fav').click(function() {
+      const btn = $(this);
+      const produtoId = btn.data('id');
+      const acaoAtual = btn.data('acao');
+
+      $.post('../backend/favoritar.php', {
+        produto_id: produtoId,
+        acao: acaoAtual
+      }, function() {
+        if (acaoAtual === 'adicionar') {
+          btn.removeClass('heart-gray').addClass('heart-red').data('acao', 'remover');
+        } else {
+          btn.removeClass('heart-red').addClass('heart-gray').data('acao', 'adicionar');
+        }
+      });
+    });
+  });
+</script>
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>AOS.init();</script>
