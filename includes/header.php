@@ -2,6 +2,18 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+require_once '../backend/db.php';
+
+// Busca quantidade de itens no carrinho
+$qtdCarrinho = 0;
+if (isset($_SESSION['usuario_id'])) {
+  $userId = $_SESSION['usuario_id'];
+  $sqlQtd = "SELECT SUM(quantidade) AS total FROM itens_carrinho ic
+             JOIN carrinhos c ON ic.carrinho_id = c.id
+             WHERE c.user_id = $userId";
+  $resQtd = mysqli_query($conn, $sqlQtd);
+  $qtdCarrinho = mysqli_fetch_assoc($resQtd)['total'] ?? 0;
+}
 ?>
 
 <head>
@@ -20,8 +32,6 @@ if (session_status() === PHP_SESSION_NONE) {
       </a>
       <nav class="hidden sm:flex gap-8 text-base font-semibold text-gray-700">
         <a href="../views/vestuario.php" class="hover:text-purple-600 transition flex items-center gap-1"><i class="fa-solid fa-shirt"></i> Vestuário</a>
-        <a href="#" class="hover:text-purple-600 transition flex items-center gap-1"><i class="fa-solid fa-glasses"></i> Acessórios</a>
-        <a href="#" class="hover:text-purple-600 transition flex items-center gap-1"><i class="fa-solid fa-star"></i> Lançamentos</a>
       </nav>
     </div>
 
@@ -48,6 +58,9 @@ if (session_status() === PHP_SESSION_NONE) {
       <a href="../views/carrinho.php" title="Carrinho"
         class="text-gray-600 hover:text-green-600 text-xl transition relative">
         <i class="fa-solid fa-cart-shopping"></i>
+        <?php if ($qtdCarrinho > 0): ?>
+          <span class="absolute -top-2 -right-2 bg-green-600 text-white text-xs font-semibold px-1.5 py-0.5 rounded-full"><?= $qtdCarrinho ?></span>
+        <?php endif; ?>
       </a>
 
       <?php if (isset($_SESSION['usuario_id']) && $_SESSION['tipo_usuario'] === 'admin'): ?>

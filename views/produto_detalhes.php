@@ -47,15 +47,14 @@ if (isset($_SESSION['usuario_id'])) {
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <style>
     body {
       font-family: 'Inter', sans-serif;
     }
-
     .scrollbar-hide::-webkit-scrollbar {
       display: none;
     }
-
     .scrollbar-hide {
       -ms-overflow-style: none;
       scrollbar-width: none;
@@ -74,8 +73,7 @@ if (isset($_SESSION['usuario_id'])) {
         while ($img = mysqli_fetch_assoc($imagens)) {
           echo '<img src="../' . htmlspecialchars($img['url_imagem']) . '" class="w-20 h-20 object-contain bg-white rounded-lg shadow cursor-pointer">';
         }
-        echo '</div>';
-        ?>
+        echo '</div>'; ?>
       </div>
 
       <div class="space-y-6" data-aos="fade-left">
@@ -88,24 +86,47 @@ if (isset($_SESSION['usuario_id'])) {
           <?php echo nl2br(htmlspecialchars($produto['descricao'] ?? 'Produto sem descrição detalhada.')); ?>
         </p>
 
-        <div class="flex gap-4 flex-wrap pt-4">
-          <button class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg text-lg font-semibold transition shadow">
-            <i class="fa-solid fa-cart-shopping mr-2"></i> Adicionar ao carrinho
-          </button>
-          <button
-            type="button"
-            class="toggle-fav-detalhe flex items-center justify-center w-14 h-14 rounded-lg border transition text-xl 
-         <?= $isFavoritado ? 'border-red-500 text-red-500 hover:text-gray-400 hover:border-gray-400' : 'border-gray-300 text-gray-400 hover:text-red-500 hover:border-red-500' ?>"
-            data-id="<?= $produto['id'] ?>"
-            data-acao="<?= $isFavoritado ? 'remover' : 'adicionar' ?>"
-            title="Favoritar">
-            <i class="fa-solid fa-heart"></i>
-          </button>
+        <?php
+$tamanhos = mysqli_query($conn, "
+  SELECT t.id, t.descricao 
+  FROM produto_tamanhos pt
+  JOIN tamanhos t ON pt.tamanho_id = t.id
+  WHERE pt.produto_id = $id
+");
+?>
 
-          <button class="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg text-lg font-semibold transition shadow">
-            <i class="fa-solid fa-bolt mr-2"></i> Comprar agora
-          </button>
-        </div>
+<div class="flex flex-col gap-4 pt-4">
+  <div>
+    <label for="tamanho" class="block text-sm font-medium text-gray-700 mb-1">Selecione o tamanho</label>
+    <select id="tamanho" class="w-full border border-gray-300 rounded px-3 py-2" required>
+      <option value="">-- Escolha um tamanho --</option>
+      <?php while ($t = mysqli_fetch_assoc($tamanhos)): ?>
+        <option value="<?= $t['id'] ?>"><?= htmlspecialchars($t['descricao']) ?></option>
+      <?php endwhile; ?>
+    </select>
+  </div>
+
+  <div class="flex gap-4 flex-wrap">
+    <button id="btn-adicionar-carrinho"
+      class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg text-lg font-semibold transition shadow">
+      <i class="fa-solid fa-cart-shopping mr-2"></i> Adicionar ao carrinho
+    </button>
+
+    <button
+      type="button"
+      class="toggle-fav-detalhe flex items-center justify-center w-14 h-14 rounded-lg border transition text-xl 
+      <?= $isFavoritado ? 'border-red-500 text-red-500 hover:text-gray-400 hover:border-gray-400' : 'border-gray-300 text-gray-400 hover:text-red-500 hover:border-red-500' ?>"
+      data-id="<?= $produto['id'] ?>"
+      data-acao="<?= $isFavoritado ? 'remover' : 'adicionar' ?>"
+      title="Favoritar">
+      <i class="fa-solid fa-heart"></i>
+    </button>
+
+    <button class="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg text-lg font-semibold transition shadow">
+      <i class="fa-solid fa-bolt mr-2"></i> Comprar agora
+    </button>
+  </div>
+</div>
       </div>
     </div>
   </main>
@@ -115,31 +136,72 @@ if (isset($_SESSION['usuario_id'])) {
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
     $(document).ready(function() {
-      $('.toggle-fav-detalhe').click(function() {
-        const btn = $(this);
-        const produtoId = btn.data('id');
-        const acaoAtual = btn.data('acao');
+  // Lógica do botão de favoritar
+  $('.toggle-fav-detalhe').click(function() {
+    const btn = $(this);
+    const produtoId = btn.data('id');
+    const acaoAtual = btn.data('acao');
 
-        $.post('../backend/favoritar.php', {
-          produto_id: produtoId,
-          acao: acaoAtual
-        }, function() {
-          if (acaoAtual === 'adicionar') {
-            btn
-              .removeClass('border-gray-300 text-gray-400')
-              .addClass('border-red-500 text-red-500')
-              .data('acao', 'remover');
-          } else {
-            btn
-              .removeClass('border-red-500 text-red-500')
-              .addClass('border-gray-300 text-gray-400')
-              .data('acao', 'adicionar');
-          }
-        }).fail(function() {
-          alert("Erro ao processar favorito. Faça login novamente.");
-        });
+    $.post('../backend/favoritar.php', {
+      produto_id: produtoId,
+      acao: acaoAtual
+    }, function() {
+      if (acaoAtual === 'adicionar') {
+        btn
+          .removeClass('border-gray-300 text-gray-400')
+          .addClass('border-red-500 text-red-500')
+          .data('acao', 'remover');
+      } else {
+        btn
+          .removeClass('border-red-500 text-red-500')
+          .addClass('border-gray-300 text-gray-400')
+          .data('acao', 'adicionar');
+      }
+    }).fail(function() {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Erro ao processar favorito. Faça login novamente.',
       });
     });
+  });
+
+  // ✅ Lógica do botão "Adicionar ao Carrinho" (agora está no escopo correto)
+  $('#btn-adicionar-carrinho').click(function () {
+    const tamanhoId = $('#tamanho').val();
+    const produtoId = <?= $produto['id'] ?>;
+
+    if (!tamanhoId) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Selecione o tamanho',
+        text: 'Você precisa escolher um tamanho antes de adicionar ao carrinho.'
+      });
+      return;
+    }
+
+    $.post('../backend/adicionar_ao_carrinho.php', {
+      produto_id: produtoId,
+      tamanho_id: tamanhoId
+    }, function () {
+      Swal.fire({
+        icon: 'success',
+        title: 'Adicionado ao carrinho!',
+        text: 'Seu produto foi adicionado com sucesso.',
+        toast: true,
+        position: 'top-end',
+        timer: 2000,
+        showConfirmButton: false
+      });
+    }).fail(function () {
+      Swal.fire({
+        icon: 'error',
+        title: 'Erro',
+        text: 'Não foi possível adicionar ao carrinho. Faça login novamente.'
+      });
+    });
+  });
+});
   </script>
 
   <?php include '../includes/footer.php'; ?>

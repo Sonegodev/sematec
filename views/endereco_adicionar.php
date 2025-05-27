@@ -1,5 +1,5 @@
 <?php
-include 'includes/verifica_login.php';
+include '../includes/verifica_login.php';
 include '../backend/db.php';
 include '../includes/header.php';
 

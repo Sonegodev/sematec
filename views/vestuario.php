@@ -6,7 +6,6 @@ include '../backend/db.php';
 
 $userId = $_SESSION['usuario_id'];
 
-// Buscar os produtos favoritados
 $favoritados = [];
 $favQuery = "SELECT produto_id FROM favoritos WHERE user_id = $userId";
 $favResult = mysqli_query($conn, $favQuery);
@@ -39,8 +38,8 @@ while ($row = mysqli_fetch_assoc($favResult)) {
       opacity: 1;
       transform: translateY(0);
     }
-    .heart-red { color: #ef4444; } /* Tailwind red-500 */
-    .heart-gray { color: #9ca3af; } /* Tailwind gray-400 */
+    .heart-red { color: #ef4444; } 
+    .heart-gray { color: #9ca3af; } 
   </style>
 </head>
 <body class="bg-gradient-to-b from-blue-50 to-white min-h-screen">
@@ -125,7 +124,6 @@ while ($row = mysqli_fetch_assoc($favResult)) {
         echo '<p class="text-sm text-gray-500">' . htmlspecialchars($produto['categoria']) . '</p>';
         echo '<p class="text-green-600 font-bold text-lg mt-1">R$ ' . number_format($produto['preco'], 2, ',', '.') . '</p>';
         echo '<div class="mt-auto flex justify-between items-center pt-4">';
-        echo '<button title="Adicionar ao carrinho" class="text-gray-600 hover:text-gray-900 text-xl transition"><i class="fa-solid fa-cart-shopping"></i></button>';
         echo '<a href="produto_detalhes.php?id=' . $produto['id'] . '" class="ml-auto px-4 py-2 rounded-lg text-white font-semibold bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 transition text-sm">Ver produto</a>';
         echo '</div>';
         echo '</div>';
@@ -139,6 +137,8 @@ while ($row = mysqli_fetch_assoc($favResult)) {
   </section>
 </main>
 
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
   $(document).ready(function() {
     $('.toggle-fav').click(function() {
@@ -152,13 +152,36 @@ while ($row = mysqli_fetch_assoc($favResult)) {
       }, function() {
         if (acaoAtual === 'adicionar') {
           btn.removeClass('heart-gray').addClass('heart-red').data('acao', 'remover');
+          Swal.fire({
+            toast: true,
+            icon: 'success',
+            title: 'Produto adicionado aos favoritos!',
+            position: 'top-end',
+            timer: 1800,
+            showConfirmButton: false
+          });
         } else {
           btn.removeClass('heart-red').addClass('heart-gray').data('acao', 'adicionar');
+          Swal.fire({
+            toast: true,
+            icon: 'info',
+            title: 'Produto removido dos favoritos',
+            position: 'top-end',
+            timer: 1800,
+            showConfirmButton: false
+          });
         }
+      }).fail(function() {
+        Swal.fire({
+          icon: 'error',
+          title: 'Erro ao favoritar',
+          text: 'Verifique sua conexão ou faça login novamente.'
+        });
       });
     });
   });
 </script>
+
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>AOS.init();</script>

@@ -31,10 +31,6 @@
                 transform: translateX(0);
             }
         }
-
-        .carousel-inner {
-            animation: slide 12s infinite;
-        }
     </style>
 </head>
 
@@ -42,11 +38,9 @@
     <?php include '../includes/header.php'; ?>
 
     <div class="relative w-full overflow-hidden max-h-[450px]">
-        <div class="flex w-[300%] carousel-inner">
-            <img src="imagens/banner1.jpg" alt="carrosel 1" class="w-full object-cover">
-            <img src="imagens/banner2.jpg" alt="carrosel 2" class="w-full object-cover">
-            <img src="imagens/banner3.jpg" alt="carrosel 3" class="w-full object-cover">
-        </div>
+        <img src="imagens/banner.png"
+            alt="Banner Durk"
+            class="w-full h-[450px] object-cover object-center rounded-lg shadow" />
     </div>
 
     <main class="max-w-7xl mx-auto px-4 py-12">
@@ -60,22 +54,29 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             <div class="bg-white shadow rounded-lg p-4">
-                <div class="h-48 bg-gray-200 rounded mb-4"></div>
-                <h3 class="text-lg font-semibold">Nome do Produto</h3>
-                <p class="text-sm text-gray-500">Categoria</p>
+                <div class="aspect-[3/4] bg-white rounded mb-4 overflow-hidden flex items-center justify-center">
+                    <img src="imagens/techfleece.png" alt="techfleece" class="object-contain h-full" />
+                </div>
+                <h3 class="text-lg font-semibold">Jaqueta Tech Fleece Dk X Syna</h3>
+                <p class="text-sm text-gray-500">Moletom</p>
                 <p class="text-green-600 font-bold mt-1">R$ 99,90</p>
             </div>
+
             <div class="bg-white shadow rounded-lg p-4">
-                <div class="h-48 bg-gray-200 rounded mb-4"></div>
-                <h3 class="text-lg font-semibold">Nome do Produto</h3>
-                <p class="text-sm text-gray-500">Categoria</p>
-                <p class="text-green-600 font-bold mt-1">R$ 149,90</p>
+                <div class="aspect-[3/4] bg-white rounded mb-4 overflow-hidden flex items-center justify-center">
+                    <img src="imagens/oversizeddk.png" alt="oversized" class="object-contain h-full" />
+                </div>
+                <h3 class="text-lg font-semibold">Camiseta Oversized Durk</h3>
+                <p class="text-sm text-gray-500">Camisetas</p>
+                <p class="text-green-600 font-bold mt-1">R$ 89,90</p>
             </div>
             <div class="bg-white shadow rounded-lg p-4">
-                <div class="h-48 bg-gray-200 rounded mb-4"></div>
-                <h3 class="text-lg font-semibold">Nome do Produto</h3>
-                <p class="text-sm text-gray-500">Categoria</p>
-                <p class="text-green-600 font-bold mt-1">R$ 199,90</p>
+                <div class="aspect-[3/4] bg-white rounded mb-4 overflow-hidden flex items-center justify-center">
+                    <img src="imagens/cintodk.png" alt="cinto" class="object-contain h-full" />
+                </div>
+                <h3 class="text-lg font-semibold">Cinto Masculino Durk</h3>
+                <p class="text-sm text-gray-500">Acessórios</p>
+                <p class="text-green-600 font-bold mt-1">R$ 69,90</p>
             </div>
         </div>
     </main>
