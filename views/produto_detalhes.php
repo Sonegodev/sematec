@@ -157,6 +157,7 @@ $tamanhos = mysqli_query($conn, "
           .addClass('border-gray-300 text-gray-400')
           .data('acao', 'adicionar');
       }
+      atualizarBadges();
     }).fail(function() {
       Swal.fire({
         icon: 'error',
@@ -193,6 +194,7 @@ $tamanhos = mysqli_query($conn, "
         timer: 2000,
         showConfirmButton: false
       });
+      atualizarBadges();
     }).fail(function () {
       Swal.fire({
         icon: 'error',

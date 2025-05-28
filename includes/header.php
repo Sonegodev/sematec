@@ -1,6 +1,6 @@
 <?php
 if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+  session_start();
 }
 require_once '../backend/db.php';
 
@@ -14,6 +14,14 @@ if (isset($_SESSION['usuario_id'])) {
   $resQtd = mysqli_query($conn, $sqlQtd);
   $qtdCarrinho = mysqli_fetch_assoc($resQtd)['total'] ?? 0;
 }
+// Busca quantidade de itens favoritados
+$qtdFavoritos = 0;
+if (isset($_SESSION['usuario_id'])) {
+  $sqlFav = "SELECT COUNT(*) AS total FROM favoritos WHERE user_id = $userId";
+  $resFav = mysqli_query($conn, $sqlFav);
+  $qtdFavoritos = mysqli_fetch_assoc($resFav)['total'] ?? 0;
+}
+
 ?>
 
 <head>
@@ -50,7 +58,15 @@ if (isset($_SESSION['usuario_id'])) {
       </form>
 
       <a href="../views/favoritos.php" title="Favoritos"
-        class="text-gray-600 hover:text-pink-600 text-xl transition"><i class="fa-regular fa-heart"></i></a>
+        class="text-gray-600 hover:text-pink-600 text-xl transition relative">
+        <i class="fa-regular fa-heart"></i>
+        <?php if ($qtdFavoritos > 0): ?>
+          <span id="badge-favoritos" class="absolute -top-2 -right-2 bg-pink-600 text-white text-xs font-semibold px-1.5 py-0.5 rounded-full">
+            <?= $qtdFavoritos ?>
+          </span>
+        <?php endif; ?>
+      </a>
+
 
       <a href="<?= isset($_SESSION['usuario_id']) ? '../views/minhaconta.php' : '../views/login.php' ?>" title="Minha Conta"
         class="text-gray-600 hover:text-blue-600 text-xl transition"><i class="fa-regular fa-user"></i></a>
@@ -59,7 +75,10 @@ if (isset($_SESSION['usuario_id'])) {
         class="text-gray-600 hover:text-green-600 text-xl transition relative">
         <i class="fa-solid fa-cart-shopping"></i>
         <?php if ($qtdCarrinho > 0): ?>
-          <span class="absolute -top-2 -right-2 bg-green-600 text-white text-xs font-semibold px-1.5 py-0.5 rounded-full"><?= $qtdCarrinho ?></span>
+          <span id="badge-carrinho" class="absolute -top-2 -right-2 bg-green-600 text-white text-xs font-semibold px-1.5 py-0.5 rounded-full">
+            <?= $qtdCarrinho ?>
+          </span>
+
         <?php endif; ?>
       </a>
 
@@ -91,4 +110,41 @@ if (isset($_SESSION['usuario_id'])) {
       searchPopup.classList.add('hidden');
     }
   });
+</script>
+<script>
+  function atualizarBadges() {
+    fetch('../backend/get_badges.php')
+      .then(response => response.json())
+      .then(data => {
+        const favBadge = document.getElementById('badge-favoritos');
+        if (data.favoritos > 0) {
+          if (!favBadge) {
+            const novoBadge = document.createElement('span');
+            novoBadge.id = 'badge-favoritos';
+            novoBadge.className = 'absolute -top-2 -right-2 bg-pink-600 text-white text-xs font-semibold px-1.5 py-0.5 rounded-full';
+            novoBadge.innerText = data.favoritos;
+            document.querySelector('a[title="Favoritos"]').appendChild(novoBadge);
+          } else {
+            favBadge.innerText = data.favoritos;
+          }
+        } else if (favBadge) {
+          favBadge.remove();
+        }
+
+        const cartBadge = document.getElementById('badge-carrinho');
+        if (data.carrinho > 0) {
+          if (!cartBadge) {
+            const novoBadge = document.createElement('span');
+            novoBadge.id = 'badge-carrinho';
+            novoBadge.className = 'absolute -top-2 -right-2 bg-green-600 text-white text-xs font-semibold px-1.5 py-0.5 rounded-full';
+            novoBadge.innerText = data.carrinho;
+            document.querySelector('a[title="Carrinho"]').appendChild(novoBadge);
+          } else {
+            cartBadge.innerText = data.carrinho;
+          }
+        } else if (cartBadge) {
+          cartBadge.remove();
+        }
+      });
+  }
 </script>

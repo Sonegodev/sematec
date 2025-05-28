@@ -171,6 +171,7 @@ while ($row = mysqli_fetch_assoc($favResult)) {
             showConfirmButton: false
           });
         }
+        atualizarBadges();
       }).fail(function() {
         Swal.fire({
           icon: 'error',

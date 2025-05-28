@@ -59,40 +59,47 @@ $itens = $stmt->get_result();
     <?php if ($itens->num_rows === 0): ?>
         <p class="text-gray-500">Seu carrinho está vazio.</p>
     <?php else: ?>
-        <div class="space-y-6" id="lista-itens">
-            <?php $total = 0; ?>
-            <?php while ($item = $itens->fetch_assoc()):
-                $subtotal = $item['preco'] * $item['quantidade'];
-                $total += $subtotal;
-            ?>
-                <div class="flex items-center justify-between bg-white rounded-xl shadow-lg p-5" data-item-id="<?= $item['item_id'] ?>" data-preco="<?= $item['preco'] ?>">
-                    <div class="flex items-center gap-5">
-                        <img src="../<?= htmlspecialchars($item['url_imagem']) ?>" class="w-28 h-28 object-contain bg-gray-100 rounded-lg">
-                        <div>
-                            <h2 class="text-lg font-semibold"><?= htmlspecialchars($item['nome']) ?></h2>
-                            <?php if ($item['tamanho']): ?>
-                                <p class="text-sm text-gray-500">Tamanho: <?= htmlspecialchars($item['tamanho']) ?></p>
-                            <?php endif; ?>
-                            <p class="text-sm text-gray-500">Preço unitário: R$ <?= number_format($item['preco'], 2, ',', '.') ?></p>
+        <form action="finalizar_pedido.php" method="post">
+            <div class="space-y-6" id="lista-itens">
+                <?php $total = 0; ?>
+                <?php while ($item = $itens->fetch_assoc()):
+                    $subtotal = $item['preco'] * $item['quantidade'];
+                    $total += $subtotal; ?>
+                    <div class="flex items-center justify-between bg-white rounded-xl shadow-lg p-5 relative group transition-all duration-300" data-item-id="<?= $item['item_id'] ?>" data-preco="<?= $item['preco'] ?>">
+                        <label class="absolute left-4 top-4">
+                            <input type="checkbox" name="selecionados[]" value="<?= $item['item_id'] ?>" class="peer hidden">
+                            <span class="w-5 h-5 border-2 border-gray-400 rounded-md block peer-checked:bg-green-600 peer-checked:border-green-600 transition duration-150"></span>
+                        </label>
+                        <div class="flex items-center gap-5">
+                            <img src="../<?= htmlspecialchars($item['url_imagem']) ?>" class="w-28 h-28 object-contain bg-gray-100 rounded-lg">
+                            <div>
+                                <h2 class="text-lg font-semibold"><?= htmlspecialchars($item['nome']) ?></h2>
+                                <?php if ($item['tamanho']): ?>
+                                    <p class="text-sm text-gray-500">Tamanho: <?= htmlspecialchars($item['tamanho']) ?></p>
+                                <?php endif; ?>
+                                <p class="text-sm text-gray-500">Preço unitário: R$ <?= number_format($item['preco'], 2, ',', '.') ?></p>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-end gap-2">
+                            <div class="flex items-center gap-2">
+                                <button class="btn-menos px-3 py-1 bg-gray-200 hover:bg-gray-300 rounded-full"><i class="fa-solid fa-minus"></i></button>
+                                <span class="qtd font-semibold text-lg"><?= $item['quantidade'] ?></span>
+                                <button class="btn-mais px-3 py-1 bg-gray-200 hover:bg-gray-300 rounded-full"><i class="fa-solid fa-plus"></i></button>
+                            </div>
+                            <span class="subtotal text-lg font-bold text-green-600">R$ <?= number_format($subtotal, 2, ',', '.') ?></span>
+                            <button class="btn-remover text-red-500 text-sm hover:underline">Remover</button>
                         </div>
                     </div>
-                    <div class="flex flex-col items-end gap-2">
-                        <div class="flex items-center gap-2">
-                            <button class="btn-menos px-3 py-1 bg-gray-200 hover:bg-gray-300 rounded-full"><i class="fa-solid fa-minus"></i></button>
-                            <span class="qtd font-semibold text-lg"><?= $item['quantidade'] ?></span>
-                            <button class="btn-mais px-3 py-1 bg-gray-200 hover:bg-gray-300 rounded-full"><i class="fa-solid fa-plus"></i></button>
-                        </div>
-                        <span class="subtotal text-lg font-bold text-green-600">R$ <?= number_format($subtotal, 2, ',', '.') ?></span>
-                        <button class="btn-remover text-red-500 text-sm hover:underline">Remover</button>
-                    </div>
-                </div>
-            <?php endwhile; ?>
-        </div>
+                <?php endwhile; ?>
+            </div>
 
-        <div class="text-right mt-10">
-            <p class="text-2xl font-bold">Total: <span id="valor-total">R$ <?= number_format($total, 2, ',', '.') ?></span></p>
-            <a href="finalizar_pedido.php" class="inline-block mt-4 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl font-semibold shadow-md transition">Finalizar Pedido</a>
-        </div>
+            <div class="text-right mt-10">
+                <p class="text-2xl font-bold">Total: <span id="valor-total">R$ <?= number_format($total, 2, ',', '.') ?></span></p>
+                <button type="submit" class="inline-block mt-4 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl font-semibold shadow-md transition">
+                    Finalizar Pedido com Selecionados
+                </button>
+            </div>
+        </form>
     <?php endif; ?>
 </main>
 
