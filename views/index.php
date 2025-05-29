@@ -2,86 +2,70 @@
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Durk</title>
-    <link rel="icon" type="image/png" href="imagens/logo.png">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Durk</title>
+  <link rel="icon" type="image/png" href="imagens/logo.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
 
-        @keyframes slide {
-            0% {
-                transform: translateX(0);
-            }
-
-            33% {
-                transform: translateX(-100%);
-            }
-
-            66% {
-                transform: translateX(-200%);
-            }
-
-            100% {
-                transform: translateX(0);
-            }
-        }
-    </style>
+    .glow {
+      text-shadow: 0 0 10px rgba(168, 85, 247, 0.6), 0 0 20px rgba(168, 85, 247, 0.4);
+    }
+  </style>
 </head>
 
-<body class="bg-gray-100">
-    <?php include '../includes/header.php'; ?>
+<body class="bg-white-950 text-black">
+  <?php include '../includes/header.php'; ?>
 
-    <div class="relative w-full overflow-hidden max-h-[450px]">
-        <img src="imagens/banner.png"
-            alt="Banner Durk"
-            class="w-full h-[450px] object-cover object-center rounded-lg shadow" />
-    </div>
+  <div class="relative w-full max-h-[500px] overflow-hidden" data-aos="zoom-in">
+    <img src="imagens/banner.png" alt="Banner Durk" class="w-full h-[500px] object-cover object-center rounded-b-2xl shadow-xl">
+  </div>
 
-    <main class="max-w-7xl mx-auto px-4 py-12">
-        <div class="text-center mb-10">
-            <h1 class="text-4xl font-bold text-gray-900">
-                Bem-vindo à
-                <span class="text-purple-600" style="font-family: 'Source Code Pro', monospace;">Durk</span>
-            </h1>
-            <p class="text-gray-500 mt-2">Novos lançamentos sempre para você!</p>
+  <main class="max-w-7xl mx-auto px-6 py-16">
+    <section class="text-center mb-16" data-aos="fade-up">
+      <h2 class="text-4xl md:text-5xl text-purple-500 mb-4 glow">Novos Lançamentos</h2>
+      <p class="text-black-300 text-lg max-w-2xl mx-auto">Chega de mais do mesmo. Aqui você encontra atitude, cultura e estilo em cada peça.</p>
+    </section>
+
+    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+      <div class="bg-white rounded-xl shadow-lg p-4 transform hover:scale-105 transition-all duration-300" data-aos="fade-up">
+        <div class="aspect-[3/4] rounded-lg overflow-hidden mb-4 bg-black">
+          <img src="imagens/techfleece.png" alt="Tech Fleece" class="object-cover w-full h-full">
         </div>
+        <h3 class="text-xl font-bold text-black">Jaqueta Tech Fleece Dk X Syna</h3>
+        <p class="text-purple-400 text-sm">Moletom</p>
+        <p class="text-green-500 text-lg font-semibold mt-2">R$ 99,90</p>
+      </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div class="bg-white shadow rounded-lg p-4">
-                <div class="aspect-[3/4] bg-white rounded mb-4 overflow-hidden flex items-center justify-center">
-                    <img src="imagens/techfleece.png" alt="techfleece" class="object-contain h-full" />
-                </div>
-                <h3 class="text-lg font-semibold">Jaqueta Tech Fleece Dk X Syna</h3>
-                <p class="text-sm text-gray-500">Moletom</p>
-                <p class="text-green-600 font-bold mt-1">R$ 99,90</p>
-            </div>
-
-            <div class="bg-white shadow rounded-lg p-4">
-                <div class="aspect-[3/4] bg-white rounded mb-4 overflow-hidden flex items-center justify-center">
-                    <img src="imagens/oversizeddk.png" alt="oversized" class="object-contain h-full" />
-                </div>
-                <h3 class="text-lg font-semibold">Camiseta Oversized Durk</h3>
-                <p class="text-sm text-gray-500">Camisetas</p>
-                <p class="text-green-600 font-bold mt-1">R$ 89,90</p>
-            </div>
-            <div class="bg-white shadow rounded-lg p-4">
-                <div class="aspect-[3/4] bg-white rounded mb-4 overflow-hidden flex items-center justify-center">
-                    <img src="imagens/cintodk.png" alt="cinto" class="object-contain h-full" />
-                </div>
-                <h3 class="text-lg font-semibold">Cinto Masculino Durk</h3>
-                <p class="text-sm text-gray-500">Acessórios</p>
-                <p class="text-green-600 font-bold mt-1">R$ 69,90</p>
-            </div>
+      <div class="bg-white rounded-xl shadow-lg p-4 transform hover:scale-105 transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
+        <div class="aspect-[3/4] rounded-lg overflow-hidden mb-4 bg-black">
+          <img src="imagens/oversizeddk.png" alt="Oversized" class="object-cover w-full h-full">
         </div>
-    </main>
+        <h3 class="text-xl font-bold text-black">Camiseta Oversized Durk</h3>
+        <p class="text-purple-400 text-sm">Camisetas</p>
+        <p class="text-green-500 text-lg font-semibold mt-2">R$ 89,90</p>
+      </div>
 
-    <?php include '../includes/footer.php'; ?>
+      <div class="bg-white rounded-xl shadow-lg p-4 transform hover:scale-105 transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
+        <div class="aspect-[3/4] rounded-lg overflow-hidden mb-4 bg-black">
+          <img src="imagens/cintodk.png" alt="Cinto" class="object-cover w-full h-full">
+        </div>
+        <h3 class="text-xl font-bold text-black">Cinto Masculino Durk</h3>
+        <p class="text-purple-400 text-sm">Acessórios</p>
+        <p class="text-green-500 text-lg font-semibold mt-2">R$ 69,90</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
+
+  <?php include '../includes/footer.php'; ?>
 </body>
 
 </html>
