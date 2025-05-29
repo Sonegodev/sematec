@@ -4,7 +4,6 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 require_once '../backend/db.php';
 
-// Busca quantidade de itens no carrinho
 $qtdCarrinho = 0;
 if (isset($_SESSION['usuario_id'])) {
   $userId = $_SESSION['usuario_id'];
@@ -14,7 +13,6 @@ if (isset($_SESSION['usuario_id'])) {
   $resQtd = mysqli_query($conn, $sqlQtd);
   $qtdCarrinho = mysqli_fetch_assoc($resQtd)['total'] ?? 0;
 }
-// Busca quantidade de itens favoritados
 $qtdFavoritos = 0;
 if (isset($_SESSION['usuario_id'])) {
   $sqlFav = "SELECT COUNT(*) AS total FROM favoritos WHERE user_id = $userId";

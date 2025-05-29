@@ -3,16 +3,16 @@
     <div>
       <h4 class="font-semibold text-gray-800 mb-4 uppercase">Sobre</h4>
       <ul class="space-y-2">
-        <li><a href="#" class="hover:underline">Quem Somos</a></li>
+        <li><a href="../views/sobre.php" class="hover:underline">Quem Somos</a></li>
         <li><a href="#" class="hover:underline">Perguntas Frequentes</a></li>
       </ul>
     </div>
     <div>
       <h4 class="font-semibold text-gray-800 mb-4 uppercase">Meus Dados</h4>
       <ul class="space-y-2">
-        <li><a href="#" class="hover:underline">Minha Conta</a></li>
+        <li><a href="../views/minhaconta.php" class="hover:underline">Minha Conta</a></li>
         <li><a href="#" class="hover:underline">Meus Pedidos</a></li>
-        <li><a href="#" class="hover:underline">Lista de Desejos</a></li>
+        <li><a href="../views/favoritos.php" class="hover:underline">Lista de Desejos</a></li>
       </ul>
     </div>
     <div>
@@ -28,7 +28,7 @@
     <div>
       <h4 class="font-semibold text-gray-800 mb-4 uppercase">Contato</h4>
       <ul class="space-y-2">
-        <li><a href="#" class="hover:underline">Fale Conosco</a></li>
+        <li><a href="../views/suporte.php" class="hover:underline">Fale Conosco</a></li>
         <li><a href="#" class="hover:underline">(XX) XXXXX-XXXX</a></li>
         <li><a href="mailto:durk@fatec.com.br" class="hover:underline">durk@fatec.com.br</a></li>
       </ul>

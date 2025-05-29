@@ -23,7 +23,7 @@ if (isset($_GET['produto_id'])) {
     }
 } elseif (isset($_POST['selecionados']) && is_array($_POST['selecionados'])) {
     $ids = implode(',', array_map('intval', $_POST['selecionados']));
-    $sql = "SELECT p.nome, p.preco, ic.quantidade FROM itens_carrinho ic JOIN produtos p ON ic.produto_id = p.id WHERE ic.id IN ($ids)";
+    $sql = "SELECT ic.id, p.nome, p.preco, ic.quantidade FROM itens_carrinho ic JOIN produtos p ON ic.produto_id = p.id WHERE ic.id IN ($ids)";
     $res = mysqli_query($conn, $sql);
     if ($res && mysqli_num_rows($res) > 0) {
         while ($row = mysqli_fetch_assoc($res)) {
@@ -33,108 +33,121 @@ if (isset($_GET['produto_id'])) {
 }
 ?>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-<div class="container py-5">
-    <h1 class="mb-4 text-center display-5 fw-bold">Finalizar Pedido</h1>
-
-    <div class="alert alert-info text-center" role="alert">
-        <strong>Atenção:</strong> Esta é uma simulação acadêmica. Nenhum dado de pagamento será processado ou armazenado.
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10" data-aos="fade-up">
+    <div class="text-center mb-10">
+        <h1 class="text-4xl font-extrabold text-gray-800">Finalizar Pedido</h1>
+        <p class="text-gray-500 mt-2">Revise as informações antes de confirmar.</p>
     </div>
 
-    <div class="card mb-4">
-        <div class="card-header fw-semibold">Resumo dos Produtos</div>
-        <ul class="list-group list-group-flush">
-            <?php if (!empty($produtos)): ?>
-                <?php foreach ($produtos as $item): ?>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <div><?php echo htmlspecialchars($item['nome']); ?> (x<?php echo $item['quantidade']; ?>)</div>
-                        <span class="fw-bold text-success">R$ <?php echo number_format($item['preco'] * $item['quantidade'], 2, ',', '.'); ?></span>
-                    </li>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <li class="list-group-item text-danger">Nenhum produto selecionado.</li>
-            <?php endif; ?>
-        </ul>
-    </div>
-
-    <div class="card mb-4">
-        <div class="card-header fw-semibold">Endereço de Entrega</div>
-        <div class="card-body">
-            <?php if ($endereco): ?>
-                <p class="mb-0">
-                    <?php echo $endereco['rua'] . ', Nº ' . $endereco['numero']; ?>
-                    <?php if (!empty($endereco['complemento'])) echo ' - ' . $endereco['complemento']; ?>,
-                    <?php echo $endereco['bairro'] . ', ' . $endereco['cidade'] . ' - ' . $endereco['estado'] . ', ' . $endereco['cep'] . ', ' . $endereco['pais']; ?>
-                </p>
-            <?php else: ?>
-                <p class="text-warning">Nenhum endereço encontrado. <button class="btn btn-sm btn-outline-primary" onclick="document.getElementById('modalEndereco').classList.remove('d-none')">Cadastrar Endereço</button></p>
-            <?php endif; ?>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">Resumo dos Produtos</h2>
+            <ul>
+                <?php if (!empty($produtos)): ?>
+                    <?php foreach ($produtos as $item): ?>
+                        <li class="flex justify-between items-center py-2 border-b border-gray-200">
+                            <span class="text-gray-700 font-medium"><?php echo htmlspecialchars($item['nome']); ?> (x<?php echo $item['quantidade']; ?>)</span>
+                            <span class="text-green-600 font-semibold">R$ <?php echo number_format($item['preco'] * $item['quantidade'], 2, ',', '.'); ?></span>
+                        </li>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <li class="text-red-600">Nenhum produto selecionado.</li>
+                <?php endif; ?>
+            </ul>
         </div>
-    </div>
 
-    <form id="formPedido" action="#" method="post" onsubmit="simularConfirmacao(event)">
-        <div class="card mb-4">
-            <div class="card-header fw-semibold">Forma de Pagamento (simulação)</div>
-            <div class="card-body">
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="pagamento" id="pix" value="pix" checked>
-                    <label class="form-check-label" for="pix">Pix</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="pagamento" id="cartao" value="cartao">
-                    <label class="form-check-label" for="cartao">Cartão de Crédito</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="pagamento" id="boleto" value="boleto">
-                    <label class="form-check-label" for="boleto">Boleto</label>
-                </div>
+        <div>
+            <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Endereço de Entrega</h2>
+                <?php if ($endereco): ?>
+                    <p class="text-gray-700">
+                        <?php echo $endereco['rua'] . ', Nº ' . $endereco['numero']; ?>
+                        <?php if (!empty($endereco['complemento'])) echo ' - ' . $endereco['complemento']; ?>,
+                        <?php echo $endereco['bairro'] . ', ' . $endereco['cidade'] . ' - ' . $endereco['estado'] . ', ' . $endereco['cep'] . ', ' . $endereco['pais']; ?>
+                    </p>
+                <?php else: ?>
+                    <p class="text-yellow-600">Nenhum endereço encontrado.</p>
+                    <button class="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded" onclick="document.getElementById('modalEndereco').classList.remove('hidden')">Cadastrar Endereço</button>
+                <?php endif; ?>
+            </div>
 
-                <div id="dados-cartao" class="mt-3 d-none">
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <input type="text" name="numero_cartao" placeholder="Número do Cartão" class="form-control">
-                        </div>
-                        <div class="col-md-6">
-                            <input type="text" name="nome_cartao" placeholder="Nome no Cartão" class="form-control">
-                        </div>
-                        <div class="col-md-6">
-                            <input type="text" name="validade" placeholder="Validade (MM/AA)" class="form-control">
-                        </div>
-                        <div class="col-md-6">
-                            <input type="text" name="cvv" placeholder="CVV" class="form-control">
+            <div class="bg-white shadow-md rounded-lg p-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Forma de Pagamento</h2>
+                <form method="POST" action="../backend/processar_pedido.php" class="space-y-4">
+                    <?php foreach ($produtos as $item): ?>
+                        <input type="hidden" name="selecionados[]" value="<?= $item['id'] ?>">
+                    <?php endforeach; ?>
+
+                    <label class="block">
+                        <input type="radio" name="pagamento" value="pix" class="mr-2" onclick="toggleCartao(false)" checked> Pix
+                    </label>
+                    <label class="block">
+                        <input type="radio" name="pagamento" value="cartao" class="mr-2" onclick="toggleCartao(true)"> Cartão de Crédito
+                    </label>
+                    <label class="block">
+                        <input type="radio" name="pagamento" value="boleto" class="mr-2" onclick="toggleCartao(false)"> Boleto
+                    </label>
+
+                    <div id="dados-cartao" class="hidden space-y-3">
+                        <input type="text" name="numero_cartao" placeholder="Número do Cartão" class="w-full border p-2 rounded">
+                        <input type="text" name="nome_cartao" placeholder="Nome no Cartão" class="w-full border p-2 rounded">
+                        <div class="flex gap-4">
+                            <input type="text" name="validade" placeholder="Validade (MM/AA)" class="flex-1 border p-2 rounded">
+                            <input type="text" name="cvv" placeholder="CVV" class="flex-1 border p-2 rounded">
                         </div>
                     </div>
-                </div>
+
+                    <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4">Confirmar Pedido</button>
+                </form>
             </div>
         </div>
+    </div>
+</main>
 
-        <div class="text-end">
-            <button type="submit" class="btn btn-success btn-lg">Confirmar Pedido</button>
-        </div>
-    </form>
+<div id="modalEndereco" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+    <div class="bg-white p-6 rounded-lg w-full max-w-xl">
+        <h2 class="text-2xl font-bold mb-4">Cadastrar Endereço</h2>
+        <form id="formEndereco">
+            <div class="grid grid-cols-2 gap-4">
+                <input type="text" name="rua" placeholder="Rua" class="border p-2 rounded" required>
+                <input type="text" name="numero" placeholder="Número" class="border p-2 rounded" required>
+                <input type="text" name="complemento" placeholder="Complemento" class="border p-2 rounded">
+                <input type="text" name="bairro" placeholder="Bairro" class="border p-2 rounded" required>
+                <input type="text" name="cidade" placeholder="Cidade" class="border p-2 rounded" required>
+                <input type="text" name="estado" placeholder="Estado" class="border p-2 rounded" required>
+                <input type="text" name="cep" placeholder="CEP" class="border p-2 rounded" required>
+                <input type="text" name="pais" placeholder="País" class="border p-2 rounded" required>
+            </div>
+            <input type="hidden" name="user_id" value="<?= $usuario_id ?>">
+            <div class="flex justify-end mt-4">
+                <button type="button" onclick="document.getElementById('modalEndereco').classList.add('hidden')" class="mr-4 text-gray-600">Cancelar</button>
+                <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Salvar</button>
+            </div>
+        </form>
+    </div>
 </div>
 
 <script>
-    const pagamentoRadios = document.querySelectorAll('input[name="pagamento"]');
-    const dadosCartao = document.getElementById('dados-cartao');
-    pagamentoRadios.forEach(radio => {
-        radio.addEventListener('change', () => {
-            dadosCartao.classList.toggle('d-none', document.getElementById('cartao').checked === false);
-        });
-    });
+AOS.init();
 
-    function simularConfirmacao(e) {
-        e.preventDefault();
-        Swal.fire({
-            icon: 'success',
-            title: 'Pedido Confirmado!',
-            text: 'Seu pedido foi registrado com sucesso (simulação).',
-            confirmButtonText: 'OK'
-        });
-    }
+function toggleCartao(ativo) {
+    document.getElementById('dados-cartao').classList.toggle('hidden', !ativo);
+}
+
+document.getElementById('formEndereco').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const form = e.target;
+    const data = new FormData(form);
+    fetch('../backend/cadastrar_endereco.php', {
+        method: 'POST',
+        body: data
+    }).then(res => res.text())
+      .then(() => location.reload());
+});
 </script>
 
 <?php include '../includes/footer.php'; ?>

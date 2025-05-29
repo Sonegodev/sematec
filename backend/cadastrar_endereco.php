@@ -11,13 +11,11 @@ $estado = $_POST['estado'];
 $cep = $_POST['cep'];
 $pais = $_POST['pais'];
 
-// Verifica se já existe
 $check = mysqli_query($conn, "SELECT id FROM enderecos WHERE user_id = $user_id");
 if ($check && mysqli_num_rows($check) > 0) {
     exit('Já existe um endereço cadastrado.');
 }
 
-// Insere novo endereço
 $sql = "INSERT INTO enderecos (user_id, rua, numero, complemento, bairro, cidade, estado, cep, pais)
         VALUES ('$user_id', '$rua', '$numero', '$complemento', '$bairro', '$cidade', '$estado', '$cep', '$pais')";
 

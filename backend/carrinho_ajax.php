@@ -6,7 +6,6 @@ if (!isset($_SESSION['usuario_id'])) exit;
 
 $userId = $_SESSION['usuario_id'];
 
-// Atualizar quantidade
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['item_id']) && isset($_POST['quantidade'])) {
         $itemId = intval($_POST['item_id']);
@@ -23,7 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit('atualizado');
     }
 
-    // Remover item
     if (isset($_POST['item_id']) && isset($_POST['remover'])) {
         $itemId = intval($_POST['item_id']);
 

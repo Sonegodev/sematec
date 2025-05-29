@@ -68,7 +68,7 @@ $tamanhos = $conn->query("SELECT * FROM tamanhos ORDER BY id DESC");
       <div class="flex justify-between items-center mb-4">
         <h2 class="text-xl font-semibold text-gray-800 flex items-center gap-2">🏷️ Marcas</h2>
         <button onclick="document.getElementById('popupMarca').showModal()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
-          ➕ Adicionar
+          Adicionar
         </button>
       </div>
       <table class="w-full text-sm text-left">
@@ -99,7 +99,7 @@ $tamanhos = $conn->query("SELECT * FROM tamanhos ORDER BY id DESC");
       <div class="flex justify-between items-center mb-4">
         <h2 class="text-xl font-semibold text-gray-800 flex items-center gap-2">📏 Tamanhos</h2>
         <button onclick="document.getElementById('popupTamanho').showModal()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
-          ➕ Adicionar
+          Adicionar
         </button>
       </div>
       <table class="w-full text-sm text-left">

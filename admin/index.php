@@ -13,7 +13,6 @@ include 'includes/header.php';
   <div class="max-w-7xl mx-auto space-y-12">
     <h1 class="text-3xl font-bold text-gray-800 text-center">Painel Administrativo</h1>
 
-    <!-- cards -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
       <div class="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-xl transition">
         <h2 class="text-sm text-gray-500 uppercase">Usuários Cadastrados</h2>
@@ -29,7 +28,6 @@ include 'includes/header.php';
       </div>
     </div>
 
-    <!-- botões  -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       <div class="bg-white rounded-2xl shadow p-6 flex flex-col items-center text-center hover:shadow-xl transition">
         <h2 class="text-lg font-bold text-gray-800 mb-2">Usuários</h2>

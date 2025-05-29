@@ -41,7 +41,6 @@ include '../includes/header.php';
     <main class="max-w-6xl mx-auto py-12 px-4 animxyz-in" xyz="fade small duration-10">
         <div class="bg-white shadow-xl rounded-2xl p-6 flex flex-col md:flex-row gap-6 items-start">
 
-            <!-- Menu lateral -->
             <aside class="w-full md:w-1/4">
                 <ul class="space-y-3">
                     <li><button onclick="mostrarAba('conta')" class="w-full text-left px-4 py-2 bg-purple-100 hover:bg-purple-200 text-purple-700 font-semibold rounded-lg transition flex items-center gap-2"><i class="fa-solid fa-user"></i> Minha Conta</button></li>
@@ -50,7 +49,6 @@ include '../includes/header.php';
                 </ul>
             </aside>
 
-            <!-- Conteúdo principal -->
             <section class="flex-1 space-y-10">
                 <div id="aba-conta" class="tab">
                     <h2 class="text-3xl font-bold mb-6 text-gray-800 border-b pb-2">👤 Meus Dados</h2>
