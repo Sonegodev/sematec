@@ -1,3 +1,3 @@
 <?php
-define('BASE_URL', '/durk/');
+define('BASE_URL', '/sematec/');
 ?>
