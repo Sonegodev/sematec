@@ -1,5 +1,5 @@
 <?php
-include '../admin/includes/auth.php';
+include '../includes/verifica_login.php';
 include '../includes/header.php';
 include '../backend/db.php';
 
@@ -24,21 +24,23 @@ $res_itens = mysqli_query($conn, $sql_itens);
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-<main class="max-w-5xl mx-auto px-4 py-12" data-aos="fade-up">
-    <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Detalhes do Pedido</h1>
+<head>
+    <title>Detalhes do Pedido - Loja Durk</title>
+</head>
+<main class="max-w-5xl mx-auto px-6 py-12" data-aos="fade-up">
+    <h1 class="text-4xl font-extrabold text-center text-gray-800 mb-6">Detalhes do Pedido</h1>
 
     <?php if ($pedido): ?>
-    <div class="bg-white shadow rounded-lg p-6 mb-10">
-        <h2 class="text-xl font-semibold text-gray-700 mb-2">Informações do Pedido</h2>
+    <div class="bg-white shadow-lg rounded-lg p-6 mb-10">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-2">Informações do Pedido</h2>
         <p class="text-gray-600"><strong>Status:</strong> <?= $pedido['status'] ?></p>
-        <p class="text-gray-600"><strong>Data:</strong> <?= date('d/m/Y H:i', strtotime($pedido['data_pedido'])) ?></p>
+        <p class="text-gray-600"><strong>Data do Pedido:</strong> <?= date('d/m/Y H:i', strtotime($pedido['data_pedido'])) ?></p>
         <p class="text-gray-600"><strong>Método de Pagamento:</strong> <?= ucfirst($pedido['metodo_pagamento']) ?></p>
         <p class="text-gray-600"><strong>Total:</strong> R$ <?= number_format($pedido['valor_total'], 2, ',', '.') ?></p>
     </div>
 
-    <div class="bg-white shadow rounded-lg p-6 mb-10">
-        <h2 class="text-xl font-semibold text-gray-700 mb-2">Endereço de Entrega</h2>
+    <div class="bg-white shadow-lg rounded-lg p-6 mb-10">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-2">Endereço de Entrega</h2>
         <p class="text-gray-600">
             <?= $pedido['rua'] . ', Nº ' . $pedido['numero']; ?>
             <?= $pedido['complemento'] ? ' - ' . $pedido['complemento'] : ''; ?>,<br>
@@ -47,8 +49,8 @@ $res_itens = mysqli_query($conn, $sql_itens);
         </p>
     </div>
 
-    <div class="bg-white shadow rounded-lg p-6">
-        <h2 class="text-xl font-semibold text-gray-700 mb-4">Itens do Pedido</h2>
+    <div class="bg-white shadow-lg rounded-lg p-6 mb-10">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-4">Itens do Pedido</h2>
         <ul class="divide-y divide-gray-200">
             <?php while ($item = mysqli_fetch_assoc($res_itens)): ?>
             <li class="flex justify-between py-4">
@@ -65,6 +67,10 @@ $res_itens = mysqli_query($conn, $sql_itens);
             </li>
             <?php endwhile; ?>
         </ul>
+    </div>
+
+    <div class="text-center mt-8">
+        <a href="minhaconta.php" class="inline-block bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-all duration-300">Voltar para a Minha Conta</a>
     </div>
 
     <?php else: ?>

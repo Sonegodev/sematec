@@ -122,7 +122,7 @@ $tamanhos = mysqli_query($conn, "
       <i class="fa-solid fa-heart"></i>
     </button>
 
-    <button class="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg text-lg font-semibold transition shadow">
+    <button id="btn-comprar-agora" class="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg text-lg font-semibold transition shadow">
       <i class="fa-solid fa-bolt mr-2"></i> Comprar agora
     </button>
   </div>
@@ -136,7 +136,6 @@ $tamanhos = mysqli_query($conn, "
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
     $(document).ready(function() {
-  // Lógica do botão de favoritar
   $('.toggle-fav-detalhe').click(function() {
     const btn = $(this);
     const produtoId = btn.data('id');
@@ -167,7 +166,6 @@ $tamanhos = mysqli_query($conn, "
     });
   });
 
-  // ✅ Lógica do botão "Adicionar ao Carrinho" (agora está no escopo correto)
   $('#btn-adicionar-carrinho').click(function () {
     const tamanhoId = $('#tamanho').val();
     const produtoId = <?= $produto['id'] ?>;
@@ -203,6 +201,24 @@ $tamanhos = mysqli_query($conn, "
       });
     });
   });
+  $(document).ready(function () {
+  $('#btn-comprar-agora').click(function () {
+    const tamanhoId = $('#tamanho').val();
+    const produtoId = <?= $produto['id'] ?>;
+
+    if (!tamanhoId) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Selecione o tamanho',
+        text: 'Você precisa escolher um tamanho antes de comprar.'
+      });
+      return;
+    }
+
+    window.location.href = `finalizar_pedido.php?produto_id=${produtoId}&tamanho_id=${tamanhoId}`;
+  });
+});
+
 });
   </script>
 
